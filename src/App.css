@@ -1,0 +1,167 @@
+/* =========================
+   BASE LAYOUT
+========================= */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* =========================
+   DARK MODE ROOT
+========================= */
+.dark {
+  background: #121212;
+  color: #fff;
+}
+
+/* =========================
+   HERO
+========================= */
+.dark .hero {
+  background:
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+    url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1600&auto=format&fit=crop");
+  color: #fff;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.dark input,
+.dark textarea {
+  background: #1e1e1e;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+/* =========================
+   CATEGORY
+========================= */
+.dark .categories-card {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+
+.dark .chip {
+  background: #2a2a2a;
+  color: #fff;
+}
+
+.dark .chip:hover {
+  background: #3a3a3a;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+.dark .featured-section,
+.dark .trending-section,
+.dark .blog-section {
+  background: #121212;
+  color: #fff;
+}
+
+/* =========================
+   PRODUCT CARD
+========================= */
+.dark .product-card {
+  background: #1e1e1e;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* IMAGE */
+.dark .product-card .image-container {
+  background: #1e1e1e;
+}
+
+.dark .product-card .product-main-img {
+  background: transparent;
+}
+
+/* TEXT */
+.dark .product-title {
+  color: #fff;
+}
+
+.dark .view-more {
+  color: #ffb84d;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.dark .amazon-btn {
+  background: #333;
+  color: #fff;
+}
+
+.dark .amazon-btn:hover {
+  background: #ff9900;
+  color: #111;
+}
+
+/* =========================
+   BLOG
+========================= */
+.dark .blog-card {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.dark .blog-content p {
+  color: #ccc;
+}
+
+/* =========================
+   ABOUT + CONTACT
+========================= */
+.dark .about,
+.dark .contact {
+  background: #121212;
+  color: #fff;
+}
+
+/* =========================
+   DARK TOGGLE
+========================= */
+.dark-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  padding: 12px 18px;
+  border: none;
+  border-radius: 30px;
+
+  cursor: pointer;
+  z-index: 999;
+
+  background: #000;
+  color: #fff;
+
+  transition: 0.2s ease;
+}
+
+.dark-toggle:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   RESPONSIVE SAFETY
+========================= */
+body {
+  transition: background 0.3s ease, color 0.3s ease;
+}

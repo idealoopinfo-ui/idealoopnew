@@ -1,0 +1,138 @@
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+  --nav-bg: #ffffff;
+  --nav-text: #111111;
+  --nav-hover: #ff9900;
+
+  --btn-bg: #111111;
+  --btn-text: #ffffff;
+
+  --btn-primary-bg: #ff9900;
+  --btn-primary-text: #111111;
+}
+
+/* DARK MODE */
+body.dark {
+  --nav-bg: #111111;
+  --nav-text: #ffffff;
+  --nav-hover: #ff9900;
+
+  --btn-bg: #ffffff;
+  --btn-text: #111111;
+
+  --btn-primary-bg: #ff9900;
+  --btn-primary-text: #111111;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 13px 40px;
+  background: var(--nav-bg);
+  color: var(--nav-text);
+
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================
+   LOGO
+========================= */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: white;
+}
+
+.brand-name {
+  font-size: 30px;
+  font-weight: 900;
+  color: #ff9900;
+}
+
+/* =========================
+   NAV LINKS
+========================= */
+.nav-links {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--nav-text);
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--nav-hover);
+}
+
+/* =========================
+   AUTH SECTION
+========================= */
+.auth-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* BASE BUTTON */
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  background: var(--btn-bg);
+  color: var(--btn-text);
+
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+/* PRIMARY BUTTON */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   GREETING TEXT
+========================= */
+.hello-text {
+  margin-right: 10px;
+  font-weight: 600;
+  color: var(--nav-text);
+}
+
+/* =========================
+   DARK MODE SHADOW FIX
+========================= */
+body.dark .navbar {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}

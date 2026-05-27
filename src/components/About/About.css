@@ -1,0 +1,89 @@
+/* =========================
+   ABOUT SECTION
+========================= */
+.about {
+  padding: 80px 40px;
+  background: #f8f8f8;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.about-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* =========================
+   TEXT SECTION
+========================= */
+.about-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-text h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.about-btn {
+  padding: 12px 20px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.about-btn:hover {
+  background: #ff9900;
+  color: #111;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   IMAGE
+========================= */
+.about-image {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .about-text h2 {
+    font-size: 32px;
+  }
+
+  .about {
+    padding: 60px 20px;
+  }
+
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
