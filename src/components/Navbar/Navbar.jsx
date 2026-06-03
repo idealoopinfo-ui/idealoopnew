@@ -20,15 +20,17 @@ export default function Navbar() {
 
     getUser();
 
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (isMounted) {
-        setUser(session?.user || null);
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (isMounted) {
+          setUser(session?.user || null);
+        }
       }
-    });
+    );
 
     return () => {
       isMounted = false;
-      data?.subscription?.unsubscribe?.();
+      authListener?.subscription?.unsubscribe?.();
     };
   }, []);
 
@@ -49,10 +51,11 @@ export default function Navbar() {
       {/* LOGO */}
       <div className="logo-container">
         <img
-          src="/logo.png"
+          src="https://bykkbdkowxocrfucxlhd.supabase.co/storage/v1/object/sign/personal/Untitled_design-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9kNjM1YjI5OC03ZmFkLTRkOTYtYjU1Yi02MDRjOGJjZGRjMGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwZXJzb25hbC9VbnRpdGxlZF9kZXNpZ24tcmVtb3ZlYmctcHJldmlldy5wbmciLCJpYXQiOjE3ODAwODI0ODgsImV4cCI6MTgxMTYxODQ4OH0._RLJ0sRfc75YRvbIYp-57l0p_pUVl8UcF2WaP6Em9PU"
           alt="idealoop logo"
-          className="logo"
+          className="navbar-logo"
         />
+
         <span className="brand-name">idealoop</span>
       </div>
 

@@ -1,0 +1,41 @@
+.admin-product-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  
+    padding: 12px;
+    margin-bottom: 10px;
+  
+    background: #111;
+    color: white;
+  
+    border-radius: 8px;
+  }
+  
+  .admin-product-image {
+    width: 60px;
+    height: 60px;
+  
+    object-fit: cover;
+  
+    border-radius: 6px;
+  }
+  
+  .admin-product-info {
+    flex: 1;
+  }
+  
+  .admin-product-info h4 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .admin-product-info p {
+    margin: 4px 0 0;
+    color: #ccc;
+  }
+  
+  .admin-product-actions {
+    display: flex;
+    gap: 10px;
+  }

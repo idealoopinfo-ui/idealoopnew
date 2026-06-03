@@ -1,0 +1,456 @@
+/* =========================
+   ADMIN CONTAINER
+========================= */
+
+.admin-container {
+  padding: 30px;
+  background: #f5f6fa;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+
+  /* ADD THIS */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.admin-container h1 {
+  margin-bottom: 20px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* =========================
+   STATS GRID
+========================= */
+
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.card {
+  flex: 1;
+  min-width: 200px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+  /* NEW FIX */
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section h2 {
+  margin-bottom: 15px;
+  color: #111;
+}
+
+/* =========================
+   ROW ITEMS (DEFAULT)
+========================= */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 14px 12px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s ease;
+  flex-wrap: wrap;
+}
+
+.row:hover {
+  background: #fafafa;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+/* =========================
+   ROW LEFT & ACTIONS
+========================= */
+
+.row-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* =========================
+   TABS
+========================= */
+
+.admin-tabs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+
+  overflow-x: auto;
+  white-space: nowrap;
+
+  margin-bottom: 20px;
+}
+
+.admin-tabs button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #111;
+  color: #fff;
+  cursor: pointer; 
+  min-width: 160px;
+  height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.admin-tabs button:hover {
+  background: #ff9900;
+}
+
+.admin-tabs button.active {
+  background: #ff9900;
+  color: #fff;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+  z-index: 999;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 400px;
+
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.modal-content textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+  border-color: #ff9900;
+}
+
+/* =========================
+   BUTTON SYSTEM
+========================= */
+
+.btn {
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-weight: 500;
+  color: #111;
+}
+
+.btn:hover {
+  background: #f5f5f5;
+}
+
+.btn-small {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+/* =========================
+   PRIMARY BUTTON
+========================= */
+
+.btn-primary {
+  background: #ff9900;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   DANGER BUTTON
+========================= */
+
+.btn-danger {
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+}
+
+.btn-danger:hover {
+  opacity: 0.85;
+}
+
+/* =========================
+   PRODUCT ID
+========================= */
+
+.admin-product-id {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* =========================
+   BLOGS
+========================= */
+
+.admin-blog-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-blog-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-blog-id {
+  font-size: 12px;
+  color: #888;
+  font-weight: 600;
+}
+
+.admin-blog-title {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.admin-blog-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* =========================
+   USERS (NEW)
+========================= */
+
+.admin-user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-user-id {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+}
+
+.admin-user-email {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.admin-user-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* =========================
+   MESSAGES (NEW)
+========================= */
+
+.admin-message-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-message-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-message-id {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+}
+
+.admin-message-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.admin-message-email {
+  font-size: 13px;
+  color: #666;
+}
+
+.admin-message-preview {
+  font-size: 12px;
+  color: #999;
+}
+
+.admin-message-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .admin-container {
+    padding: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .row-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .card {
+    min-width: 100%;
+  }
+}
+
+.admin-user-card,
+.admin-message-card,
+.admin-blog-row,
+.admin-product-card {
+  width: 100%;
+  max-width: 900px;
+}
+.admin-message-info,
+.admin-user-info,
+.admin-blog-info,
+.admin-product-info {
+  text-align: left;
+}
+
+.admin-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.admin-top-bar h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #111;
+}

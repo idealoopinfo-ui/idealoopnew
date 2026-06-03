@@ -1,0 +1,267 @@
+/* =========================
+   LOGIN PAGE
+========================= */
+.login-container {
+    min-height: 70vh;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    background: #f4f6f9;
+    padding: 20px;
+  }
+  
+  /* =========================
+     LOGIN CARD
+  ========================= */
+  .login-card {
+    width: 100%;
+    max-width: 360px;
+  
+    background: white;
+  
+    padding: 30px;
+    border-radius: 14px;
+  
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  
+    text-align: center;
+  }
+  
+  /* TITLE */
+  .login-card h2 {
+    margin-bottom: 5px;
+    color: #111;
+  }
+  
+  /* SUBTITLE */
+  .subtitle {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 20px;
+  }
+  
+  /* =========================
+     GOOGLE BUTTON
+  ========================= */
+  .google-btn {
+    width: 100%;
+  
+    padding: 10px;
+  
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  
+    background: white;
+  
+    cursor: pointer;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  
+    transition: 0.25s ease;
+  }
+  
+  .google-btn:hover {
+    background: #f1f1f1;
+  }
+  
+  /* GOOGLE ICON */
+  .google-icon {
+    font-size: 18px;
+    font-weight: 700;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* =========================
+     DIVIDER
+  ========================= */
+  .divider {
+    margin: 15px 0;
+    font-size: 12px;
+    color: gray;
+  }
+  
+  /* =========================
+     INPUT
+  ========================= */
+  .input {
+    width: 100%;
+  
+    padding: 10px;
+    margin: 8px 0;
+  
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  
+    outline: none;
+  
+    font-size: 14px;
+  
+    transition: border-color 0.2s ease;
+  }
+  
+  .input:focus {
+    border-color: #ff6600;
+  }
+  
+  /* =========================
+     PASSWORD BOX
+  ========================= */
+  .password-box {
+    position: relative;
+  }
+  
+  /* TOGGLE PASSWORD */
+  .toggle-password {
+    position: absolute;
+  
+    right: 12px;
+    top: 50%;
+  
+    transform: translateY(-50%);
+  
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  /* =========================
+     FORGOT PASSWORD
+  ========================= */
+  .forgot-password {
+    display: inline-block;
+  
+    margin-top: 8px;
+  
+    padding: 6px 10px;
+    border-radius: 6px;
+  
+    font-size: 14px;
+    color: #333;
+  
+    cursor: pointer;
+  
+    transition: 0.2s ease;
+  }
+  
+  .forgot-password:hover {
+    background: #ff6600;
+    color: white;
+  }
+  
+  .forgot-password:active {
+    transform: scale(0.97);
+  }
+  
+  /* =========================
+     LOGIN BUTTON
+  ========================= */
+  .login-btn {
+    width: 100%;
+  
+    padding: 10px;
+    margin-top: 12px;
+  
+    background: #111;
+    color: white;
+  
+    border: none;
+    border-radius: 8px;
+  
+    cursor: pointer;
+  
+    font-weight: 600;
+  
+    transition: 0.25s ease;
+  }
+  
+  .login-btn:hover {
+    background: #ff6600;
+  }
+  
+  /* =========================
+     REGISTER TEXT
+  ========================= */
+  .register-text {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #555;
+  }
+  
+  .register-link {
+    color: #007bff;
+  
+    text-decoration: none;
+    font-weight: 500;
+  
+    transition: 0.25s ease;
+  }
+  
+  .register-link:hover {
+    color: #ff6600;
+    text-decoration: underline;
+  }
+  
+  /* =========================
+     TOAST MESSAGE
+  ========================= */
+  .toast-message {
+    position: fixed;
+  
+    top: 20px;
+    right: 20px;
+  
+    background: #16a34a;
+    color: white;
+  
+    padding: 14px 20px;
+  
+    border-radius: 12px;
+  
+    font-size: 14px;
+    font-weight: 600;
+  
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  
+    z-index: 999;
+  
+    animation: slideIn 0.3s ease;
+  }
+  
+  /* =========================
+     ANIMATION
+  ========================= */
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* =========================
+     RESPONSIVE
+  ========================= */
+  @media (max-width: 480px) {
+    .login-card {
+      padding: 24px 20px;
+    }
+  
+    .toast-message {
+      right: 10px;
+      left: 10px;
+      top: 10px;
+  
+      text-align: center;
+    }
+  }

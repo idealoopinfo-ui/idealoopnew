@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import Admin from "./pages/Admin/Admin";
 import Users from "./pages/Admin/Users";
@@ -9,7 +9,7 @@ import Messages from "./pages/Admin/Messages";
 import Analytics from "./pages/Admin/Analytics";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import BlogPostPage from "./pages/BlogPostPage/BlogPostPage";
 
@@ -118,21 +118,23 @@ export default function App() {
             {/* PROFILE */}
             <Route path="/profile" element={<Profile />} />
 
-            {/* LEGAL */}
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/privacy-policy" element={<Privacy />} />
-            <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
+  {/* LEGAL */}
+  <Route path="/terms" element={<Terms />} />
+  <Route path="/privacy-policy" element={<Privacy />} />
+  <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
 
-            {/* RESET PASSWORD */}
-            <Route path="/reset-password" element={<ResetPassword />} />
+  {/* RESET PASSWORD */}
+  <Route path="/reset-password" element={<ResetPassword />} />
+</Routes>
+</main>
 
-          </Routes>
-        </main>
+{/* FOOTER */}
+<Footer />
 
-        <Footer />
-        <CookiePopup />
+{/* COOKIE / LOGIN POPUP (OVERLAY - MUST BE LAST) */}
+<CookiePopup />
 
-      </BrowserRouter>
-    </div>
-  );
+</BrowserRouter>
+</div>
+);
 }

@@ -1,0 +1,190 @@
+/* =========================
+   CATEGORY PAGE WRAPPER
+========================= */
+.category-page {
+    padding: 40px;
+  }
+  
+  /* =========================
+     TITLE
+  ========================= */
+  .home-category-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+  }
+  
+  /* =========================
+     SUBCATEGORY BUTTONS
+  ========================= */
+  .subcategory-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .subcategory-list button {
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+  
+    background: #eee;
+    border: none;
+  
+    font-weight: 500;
+  
+    transition: 0.2s ease;
+  }
+  
+  .subcategory-list button:hover {
+    background: #ddd;
+  }
+  
+  .subcategory-list button.active {
+    background: #111;
+    color: #fff;
+  }
+  
+  /* =========================
+     PRODUCT GRID
+  ========================= */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  
+  /* =========================
+     RESPONSIVE GRID
+  ========================= */
+  @media (max-width: 1200px) {
+    .product-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .product-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .category-page {
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* =========================
+     SHOP BY CATEGORY CARD
+  ========================= */
+  .categories-card {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0;
+  }
+  
+  .categories-card-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    background: #ff9900;
+    padding: 18px 22px;
+    border-radius: 14px;
+  
+    width: 100%;
+    max-width: 1140px;
+  
+    gap: 20px;
+  }
+  
+  /* LEFT TEXT */
+  .categories-left h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #111;
+  }
+  
+  .categories-left p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #222;
+  }
+  
+  /* CHIPS WRAPPER */
+  .categories-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  
+  /* =========================
+     CHIP BUTTONS
+  ========================= */
+  .chip {
+    width: 150px;
+    height: 42px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 999px;
+  
+    border: 1px solid #111;
+    background: transparent;
+  
+    color: #111;
+  
+    font-size: 16px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition: 0.25s ease;
+  
+    text-align: center;
+  }
+  
+  /* HOVER */
+  .chip:hover {
+    background: #111;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  
+  /* OPTIONAL ACTIVE STATE (RECOMMENDED) */
+  .chip.active {
+    background: #111;
+    color: #fff;
+  }
+  
+  /* MOBILE IMPROVEMENT */
+  @media (max-width: 768px) {
+    .categories-card-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .categories-chips {
+      justify-content: flex-start;
+    }
+  
+    .chip {
+      width: auto;
+      padding: 10px 16px;
+    }
+  }

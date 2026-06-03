@@ -1,0 +1,71 @@
+/* =========================
+   GLOBAL BUTTON STYLE
+   UNIFIED SIZE SYSTEM
+========================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  
+    min-width: 80px;
+    height: 38px;
+  
+    padding: 0 14px;
+  
+    background: #111;
+    color: #fff;
+  
+    border: none;
+    border-radius: 13px;
+  
+    font-size: 14px;
+    font-weight: 500;
+  
+    cursor: pointer;
+    text-decoration: none;
+  
+    transition: all 0.2s ease;
+  
+    user-select: none;
+  }
+  
+  /* HOVER */
+  .btn:hover {
+    background: #ff9900;
+    color: #111;
+  
+    transform: translateY(-1px);
+  }
+  
+  /* CLICK EFFECT */
+  .btn:active {
+    transform: scale(0.97);
+  }
+  
+  /* FOCUS (ACCESSIBILITY) */
+  .btn:focus-visible {
+    outline: 2px solid #ff9900;
+    outline-offset: 2px;
+  }
+  
+  /* DISABLED STATE */
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  
+    transform: none;
+  }
+  
+  /* OPTIONAL PRIMARY VARIANT */
+  .btn-primary {
+    background: #111;
+    color: #fff;
+  }
+  
+  /* BUTTON GROUP */
+  .auth-links {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }

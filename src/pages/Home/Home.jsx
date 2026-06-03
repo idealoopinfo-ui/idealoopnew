@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../../lib/supabaseClient";
 
-import About from "../components/About/About";
-import GetInTouch from "../components/GetInTouch/GetInTouch";
-import TrendingProducts from "../components/Trending/TrendingProducts";
-import FeaturedProducts from "../components/FeaturedProducts/FeaturedProducts";
+import About from "../../components/About/About";
+import GetInTouch from "../../components/GetInTouch/GetInTouch";
+import TrendingProducts from "../../components/Trending/TrendingProducts";
+import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts";
 
 import "./Home.css";
 
@@ -66,20 +66,19 @@ export default function Home() {
       </section>
 
       {/* SEARCH */}
-      <section className="search-section">
-        <input
-          type="text"
-          placeholder="Search blogs or products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="search-input"
-        />
+      <div className="search-section">
+  <div className="search-bar">
+    <input
+      type="text"
+      placeholder="Search products..."
+      className="search-input"
+    />
 
-        <button className="btn" onClick={handleSearch}>
-          Search
-        </button>
-      </section>
+    <button className="btn btn-primary">
+      Search
+    </button>
+  </div>
+</div>
 
       {/* CATEGORY */}
       <section className="categories-card">
