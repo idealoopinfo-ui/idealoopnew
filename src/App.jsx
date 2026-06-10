@@ -52,7 +52,7 @@ export default function App() {
         {darkMode ? "☀ Light" : "🌙 Dark"}
       </button>
 
-      {/* IMPORTANT: must be OUTSIDE Routes */}
+      {/* Scroll reset on route change */}
       <ScrollToTop />
 
       <main className="main-content">
@@ -102,13 +102,15 @@ export default function App() {
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
 
-          {/* RESET */}
+          {/* RESET PASSWORD */}
           <Route path="/reset-password" element={<ResetPassword />} />
 
         </Routes>
       </main>
 
+      {/* SINGLE FOOTER ONLY */}
       <Footer />
+
       <CookiePopup />
 
     </div>

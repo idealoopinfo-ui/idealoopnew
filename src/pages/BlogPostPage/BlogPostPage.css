@@ -28,10 +28,11 @@
   /* =========================
      BLOG PAGE
   ========================= */
-  .post-container {
-    max-width: 900px;
-    margin: 60px auto;
-    padding: 0 20px 60px;
+  .blog-container {
+    max-width: 1000px;   /* tighter layout */
+    margin: 0 auto;
+    padding: 0 10px;
+    gap: 15px;           /* reduced spacing */
   }
   
   /* TITLE */

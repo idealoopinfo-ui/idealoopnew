@@ -1,11 +1,11 @@
 
 /* PAGE LAYOUT */
 .product-detail-page {
-  max-width: 1100px;
-  margin: auto;
-  padding: 40px 20px;
+  max-width: 850px;   /* 🔥 reduced from 1000–1100 */
+  margin: 20px auto;
+  padding: 16px 12px;
   display: flex;
-  gap: 40px;
+  gap: 20px;
   align-items: flex-start;
 }
 

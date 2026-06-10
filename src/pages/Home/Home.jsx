@@ -7,6 +7,7 @@ import GetInTouch from "../../components/GetInTouch/GetInTouch";
 import TrendingProducts from "../../components/Trending/TrendingProducts";
 import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts";
 
+
 import "./Home.css";
 
 export default function Home() {
@@ -131,66 +132,68 @@ export default function Home() {
       {/* TRENDING */}
       <TrendingProducts />
 
-      {/* BLOGS */}
-      <section className="blog-section">
+     {/* BLOGS */}
+<section className="blog-section">
 
-        <div className="blog-header">
-          <h2>📚 Latest Blogs</h2>
-        </div>
+<div className="blog-header">
+  <h2>📚 Latest Blogs</h2>
+</div>
 
-        <div className="blog-container">
+<div className="blog-container home-blog-container">
 
-          {blogs.length === 0 ? (
-            <p>No blogs found.</p>
-          ) : (
-            blogs.map((blog) => (
-              <div key={blog.id} className="blog-card">
+  {blogs.length === 0 ? (
+    <p>No blogs found.</p>
+  ) : (
+    blogs.map((blog) => (
+      <div key={blog.id} className="blog-card home-blog-card">
 
-                <img
-                  src={blog.image_url || "https://via.placeholder.com/400"}
-                  alt={blog.title}
-                  className="blog-image"
-                />
+  <img
+    src={blog.image_url || "https://via.placeholder.com/400"}
+    alt={blog.title}
+    className="home-blog-image"
+  />
 
-                <div className="blog-content">
-                  <h3>{blog.title}</h3>
+  <div className="home-blog-content">
 
-                  <p>
-                    {blog.description ||
-                      (blog.content ? blog.content.slice(0, 100) : "")}
-                  </p>
+    <h3 className="home-blog-title">
+      {blog.title}
+    </h3>
 
-                  <button
-                    className="amazon-btn"
-                    onClick={() => navigate(`/post/${blog.id}`)}
-                  >
-                    View Details →
-                  </button>
-                </div>
+    {/* BUTTON ALWAYS SAME LEVEL */}
+    <button
+      className="blog-btn"
+      onClick={() => navigate(`/post/${blog.id}`)}
+    >
+      View Details →
+    </button>
 
-              </div>
-            ))
-          )}
+  </div>
 
-        </div>
+</div>
+      
+    ))
+  )}
 
-        <div className="blog-footer">
-          <button
-            className="view-all-btn"
-            onClick={() => navigate("/blogs")}
-          >
-            View All →
-          </button>
-        </div>
+</div>
 
-      </section>
+<div className="blog-footer">
+  <button
+    className="view-all-btn"
+    onClick={() => navigate("/blogs")}
+  >
+    View All →
+  </button>
+</div>
+
+</section>
+
 
       {/* CONTACT */}
-      <GetInTouch />
+  <section className="contact-section">
+    <GetInTouch />
+  </section>
 
-      {/* FOOTER */}
-      <footer className="footer"></footer>
-
-    </div>
+ 
+</div>
   );
-}
+ }
