@@ -81,39 +81,45 @@ export default function Home() {
 </div>
 
       {/* CATEGORY */}
-      <section className="categories-card">
-        <div className="categories-card-inner">
+      <section className="category-section">
 
-          <div className="categories-left">
-            <h2>Shop by Category</h2>
-            <p>Explore products by fitness category</p>
-          </div>
+<div className="categories-header">
+  <h2 className="categories-title">Shop by Category</h2>
+  <p className="categories-subtitle">
+    Find products based on your fitness goals
+  </p>
+</div>
 
-          <div className="categories-chips">
-            <button onClick={() => navigate("/category/strength-training")} className="chip">
-              Strength Training
-            </button>
+<div className="categories-grid">
 
-            <button onClick={() => navigate("/category/yoga-pilates")} className="chip">
-              Yoga & Pilates
-            </button>
+  <div onClick={() => navigate("/category/strength-training")} className="category-card">
+    <div className="category-icon"></div>
+    <div className="category-text">Strength Training</div>
+  </div>
 
-            <button onClick={() => navigate("/category/recovery-wellness")} className="chip">
-              Recovery
-            </button>
+  <div onClick={() => navigate("/category/yoga-pilates")} className="category-card">
+    <div className="category-icon"></div>
+    <div className="category-text">Yoga & Pilates</div>
+  </div>
 
-            <button onClick={() => navigate("/category/gym-wear")} className="chip">
-              Gym Wear
-            </button>
+  <div onClick={() => navigate("/category/recovery-wellness")} className="category-card">
+    <div className="category-icon"></div>
+    <div className="category-text">Recovery</div>
+  </div>
 
-            <button onClick={() => navigate("/category/ebooks")} className="chip">
-              Ebooks
-            </button>
-          </div>
+  <div onClick={() => navigate("/category/gym-wear")} className="category-card">
+    <div className="category-icon"></div>
+    <div className="category-text">Gym Wear</div>
+  </div>
 
-        </div>
-      </section>
+  <div onClick={() => navigate("/category/ebooks")} className="category-card">
+    <div className="category-icon"></div>
+    <div className="category-text">Ebooks</div>
+  </div>
 
+</div>
+
+</section>
       {/* FEATURED */}
       <FeaturedProducts />
 

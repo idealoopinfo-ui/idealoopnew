@@ -56,10 +56,8 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div
-      className="product-card"
-      onClick={goToProduct}
-    >
+    <div className="product-card" onClick={goToProduct}>
+  
       {/* IMAGE */}
       <div className="image-container">
         <img
@@ -71,7 +69,7 @@ export default function ProductCard({ product }) {
               "https://via.placeholder.com/400x400?text=Product";
           }}
         />
-
+  
         {/* WISHLIST */}
         <button
           className="wishlist-hover-btn"
@@ -83,46 +81,39 @@ export default function ProductCard({ product }) {
           👍
         </button>
       </div>
-
+  
       {/* PRODUCT INFO */}
       <div className="product-info">
-
-        <div className="title-wrapper">
-
-          <h3
-            className="product-title"
-            title={product.title}
+  
+        <h3 className="product-title" title={product.title}>
+          {product.title || "Untitled Product"}
+        </h3>
+  
+        <p
+          className="view-more"
+          onClick={(e) => {
+            e.stopPropagation();
+            goToProduct();
+          }}
+        >
+          View More →
+        </p>
+  
+        {product?.amazon_url && (
+          <a
+            href={product.amazon_url}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
           >
-            {product.title || "Untitled Product"}
-          </h3>
-
-          <p
-            className="view-more"
-            onClick={(e) => {
-              e.stopPropagation();
-              goToProduct();
-            }}
-          >
-            View More →
-          </p>
-
-          {product?.amazon_url && (
-            <a
-              href={product.amazon_url}
-              target="_blank"
-              rel="noreferrer"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button className="amazon-btn">
-                Shop on Amazon
-              </button>
-            </a>
-          )}
-
-        </div> {/* <-- missing title-wrapper closing div */}
-
+            <button className="amazon-btn">
+              Shop on Amazon
+            </button>
+          </a>
+        )}
+  
       </div>
-
+  
     </div>
   );
 }
