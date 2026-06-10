@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
-import Admin from "./pages/Admin/Admin";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Users from "./pages/Admin/Users";
 import Messages from "./pages/Admin/Messages";
 import Analytics from "./pages/Admin/Analytics";
-import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 import Home from "./pages/Home/Home";
 import Wishlist from "./pages/Wishlist/Wishlist";
@@ -21,8 +20,6 @@ import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/Profile";
 
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
-import CookiePopup from "./components/CookiePopup/CookiePopup";
-
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 
@@ -35,6 +32,9 @@ import AffiliateDisclosure from "./pages/Legal/AffiliateDisclosure";
 
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
+import CookiePopup from "./components/CookiePopup/CookiePopup";
+import ScrollToTop from "./components/ScrollToTop";
+
 import "./App.css";
 
 export default function App() {
@@ -42,99 +42,75 @@ export default function App() {
 
   return (
     <div className={`app-layout ${darkMode ? "dark" : ""}`}>
-      <BrowserRouter>
 
-        <Navbar />
+      <Navbar />
 
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="dark-toggle"
-        >
-          {darkMode ? "☀ Light" : "🌙 Dark"}
-        </button>
+      <button
+        onClick={() => setDarkMode(!darkMode)}
+        className="dark-toggle"
+      >
+        {darkMode ? "☀ Light" : "🌙 Dark"}
+      </button>
 
-        <main className="main-content">
-          <Routes>
+      {/* IMPORTANT: must be OUTSIDE Routes */}
+      <ScrollToTop />
 
-            {/* HOME */}
-            <Route path="/" element={<Home />} />
+      <main className="main-content">
+        <Routes>
 
-            {/* AUTH */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+          {/* HOME */}
+          <Route path="/" element={<Home />} />
 
-            {/* ADMIN (PROTECTED) */}
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
+          {/* AUTH */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-            <Route
-              path="/admin/users"
-              element={
-                <ProtectedRoute>
-                  <Users />
-                </ProtectedRoute>
-              }
-            />
+          {/* ADMIN */}
+          <Route
+            path="/admin"
+            element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}
+          />
+          <Route
+            path="/admin/users"
+            element={<ProtectedRoute><Users /></ProtectedRoute>}
+          />
+          <Route
+            path="/admin/messages"
+            element={<ProtectedRoute><Messages /></ProtectedRoute>}
+          />
+          <Route
+            path="/admin/analytics"
+            element={<ProtectedRoute><Analytics /></ProtectedRoute>}
+          />
 
-            <Route
-              path="/admin/messages"
-              element={
-                <ProtectedRoute>
-                  <Messages />
-                </ProtectedRoute>
-              }
-            />
+          {/* USER */}
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/profile" element={<Profile />} />
 
-            <Route
-              path="/admin/analytics"
-              element={
-                <ProtectedRoute>
-                  <Analytics />
-                </ProtectedRoute>
-              }
-            />
+          {/* CATEGORY + PRODUCTS */}
+          <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path="/products" element={<ProductPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
 
-            {/* WISHLIST */}
-            <Route path="/wishlist" element={<Wishlist />} />
+          {/* BLOG */}
+          <Route path="/blog" element={<BlogCreatePage />} />
+          <Route path="/blogs" element={<BlogsList />} />
+          <Route path="/post/:id" element={<BlogPostPage />} />
 
-            {/* CATEGORY */}
-            <Route path="/category/:category" element={<CategoryPage />} />
+          {/* LEGAL */}
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy-policy" element={<Privacy />} />
+          <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
 
-            {/* PRODUCTS */}
-            <Route path="/products" element={<ProductPage />} />
-            <Route path="/product/:id" element={<ProductDetailPage />} />
+          {/* RESET */}
+          <Route path="/reset-password" element={<ResetPassword />} />
 
-            {/* BLOGS */}
-            <Route path="/blog" element={<BlogCreatePage />} />
-            <Route path="/blogs" element={<BlogsList />} />
-            <Route path="/post/:id" element={<BlogPostPage />} />
+        </Routes>
+      </main>
 
-            {/* PROFILE */}
-            <Route path="/profile" element={<Profile />} />
+      <Footer />
+      <CookiePopup />
 
-  {/* LEGAL */}
-  <Route path="/terms" element={<Terms />} />
-  <Route path="/privacy-policy" element={<Privacy />} />
-  <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
-
-  {/* RESET PASSWORD */}
-  <Route path="/reset-password" element={<ResetPassword />} />
-</Routes>
-</main>
-
-{/* FOOTER */}
-<Footer />
-
-{/* COOKIE / LOGIN POPUP (OVERLAY - MUST BE LAST) */}
-<CookiePopup />
-
-</BrowserRouter>
-</div>
-);
+    </div>
+  );
 }

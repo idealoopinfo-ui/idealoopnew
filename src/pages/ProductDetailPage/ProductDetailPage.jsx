@@ -40,11 +40,20 @@ export default function ProductDetailPage() {
   }, [id]);
 
   if (loading) {
-    return <div className="product-loading">Loading product...</div>;
+    return (
+      <div className="product-status">
+        <div className="loading-spinner"></div>
+        <span>Loading product...</span>
+      </div>
+    );
   }
-
+  
   if (!product) {
-    return <div className="product-loading">Product not found</div>;
+    return (
+      <div className="product-status">
+        Product not found
+      </div>
+    );
   }
 
   // IMAGE ARRAY (based on your DB structure)
