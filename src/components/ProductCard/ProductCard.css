@@ -102,34 +102,41 @@ VIEW MORE
 }
 
 /* =========================
-AMAZON BUTTON
+SHOP BUTTON
 ========================= */
-.amazon-btn {
-  margin-top: 12px;
-  padding: 14px 18px;
+.shop-btn {
+  width: 100%;
+  padding: 14px 14px;
+  border-radius: 800px;
+  background: linear-gradient(135deg, #111, #333);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   border: none;
-  border-radius: 12px;
-  background: #111;
+  
   color: #fff;
-  font-size: 15px;
-  font-weight: 700;
+
+  font-size: 14px;
+  font-weight: 600;
+
   cursor: pointer;
+
   transition: all 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* AMAZON BUTTON HOVER */
-.amazon-btn:hover {
+.shop-btn:hover {
   background: #ff9900;
   color: #111;
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 153, 0, 0.25);
 }
 
 /* AMAZON BUTTON ACTIVE */
 .amazon-btn:active {
   transform: scale(0.98);
+}
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* =========================
