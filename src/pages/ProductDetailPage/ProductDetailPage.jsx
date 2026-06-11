@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
 import "./ProductDetailPage.css";
 
@@ -9,6 +9,28 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
+  const navigate = useNavigate();
+const [user, setUser] = useState(null);
+
+useEffect(() => {
+  const getUser = async () => {
+    const { data } = await supabase.auth.getUser();
+    setUser(data?.user || null);
+  };
+
+  getUser();
+}, []);
+
+const handleShopClick = () => {
+  if (!user) {
+    navigate("/login");
+    return;
+  }
+
+  if (product?.amazon_url) {
+    window.open(product.amazon_url, "_blank");
+  }
+};
 
   useEffect(() => {
 
@@ -125,14 +147,15 @@ export default function ProductDetailPage() {
           </ul>
         )}
 
-        {/* BUTTON */}
-        {product.amazon_url && (
-          <a href={product.amazon_url} target="_blank" rel="noreferrer">
-            <button className="amazon-btn">
-              Shop Now
-            </button>
-          </a>
-        )}
+       {/* BUTTON */}
+{product.amazon_url && (
+  <button
+    className="shop-btn"
+    onClick={handleShopClick}
+  >
+    {user ? "Shop Now" : "Login to Shop"}
+  </button>
+)}
 
       </div>
 

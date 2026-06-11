@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+
+import { supabase } from "./lib/supabaseClient";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -40,79 +42,57 @@ import "./App.css";
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      console.log("Session:", data.session);
+    });
+  }, []);
+
   return (
     <div className={`app-layout ${darkMode ? "dark" : ""}`}>
-
       <Navbar />
 
-      <button
-        onClick={() => setDarkMode(!darkMode)}
-        className="dark-toggle"
-      >
+      <button onClick={() => setDarkMode(!darkMode)} className="dark-toggle">
         {darkMode ? "☀ Light" : "🌙 Dark"}
       </button>
 
-      {/* Scroll reset on route change */}
       <ScrollToTop />
 
       <main className="main-content">
         <Routes>
 
-          {/* HOME */}
           <Route path="/" element={<Home />} />
 
-          {/* AUTH */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* ADMIN */}
-          <Route
-            path="/admin"
-            element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}
-          />
-          <Route
-            path="/admin/users"
-            element={<ProtectedRoute><Users /></ProtectedRoute>}
-          />
-          <Route
-            path="/admin/messages"
-            element={<ProtectedRoute><Messages /></ProtectedRoute>}
-          />
-          <Route
-            path="/admin/analytics"
-            element={<ProtectedRoute><Analytics /></ProtectedRoute>}
-          />
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
+          <Route path="/admin/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
+          <Route path="/admin/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
 
-          {/* USER */}
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/profile" element={<Profile />} />
 
-          {/* CATEGORY + PRODUCTS */}
           <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
 
-          {/* BLOG */}
           <Route path="/blog" element={<BlogCreatePage />} />
           <Route path="/blogs" element={<BlogsList />} />
           <Route path="/post/:id" element={<BlogPostPage />} />
 
-          {/* LEGAL */}
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
 
-          {/* RESET PASSWORD */}
           <Route path="/reset-password" element={<ResetPassword />} />
 
         </Routes>
       </main>
 
-      {/* SINGLE FOOTER ONLY */}
       <Footer />
-
       <CookiePopup />
-
     </div>
   );
 }

@@ -102,24 +102,23 @@ VIEW MORE
 }
 
 /* =========================
-SHOP BUTTON
+   SHOP BUTTON
 ========================= */
+
 .shop-btn {
-  width: 100%;
-  padding: 14px 14px;
+  width: 170px;
+  padding: 12px 14px;
   border-radius: 800px;
   background: linear-gradient(135deg, #111, #333);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: none;
-  
   color: #fff;
-
   font-size: 14px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: all 0.25s ease;
+
+  margin-top: 25px; /* ✅ spacing fixed */
 }
 
 .shop-btn:hover {
