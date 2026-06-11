@@ -2,45 +2,54 @@
    LOGIN PAGE
 ========================= */
 .login-container {
-    min-height: 70vh;
+    min-height: 60vh;
   
     display: flex;
     justify-content: center;
     align-items: center;
   
     background: #f4f6f9;
-    padding: 20px;
+    padding: 10px;
   }
   
   /* =========================
      LOGIN CARD
   ========================= */
-  .login-card {
-    width: 100%;
-    max-width: 360px;
-  
-    background: white;
-  
-    padding: 30px;
-    border-radius: 14px;
-  
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  
-    text-align: center;
-  }
+  /* FULL PAGE CENTER WRAPPER */
+.login-wrapper {
+  min-height: 60vh;
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* center vertically */
+  padding: 20px 20px;        /* top + bottom space */
+  box-sizing: border-box;
+  background:  #ccc;;
+}
+
+/* LOGIN CARD */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
   
   /* TITLE */
-  .login-card h2 {
-    margin-bottom: 5px;
-    color: #111;
-  }
-  
-  /* SUBTITLE */
-  .subtitle {
-    font-size: 14px;
-    color: gray;
-    margin-bottom: 20px;
-  }
+.login-card h2 {
+  margin-bottom: 5px;
+  color: #111;
+  text-align: center;
+}
+
+/* SUBTITLE */
+.subtitle {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 20px;
+  text-align: center;
+}
   
   /* =========================
      GOOGLE BUTTON
@@ -207,33 +216,47 @@
     color: #ff6600;
     text-decoration: underline;
   }
+
+  .register-text span {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  /* Hover effect */
+  .register-text span:hover {
+    color: #ff6b00;   /* you can change to your brand color */
+    text-decoration: underline;
+  }
   
   /* =========================
      TOAST MESSAGE
   ========================= */
-  .toast-message {
+  .message {
     position: fixed;
-  
     top: 20px;
     right: 20px;
   
-    background: #16a34a;
+    background: #28a745;
     color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
   
-    padding: 14px 20px;
-  
-    border-radius: 12px;
-  
-    font-size: 14px;
-    font-weight: 600;
-  
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  
-    z-index: 999;
+    z-index: 9999;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   
     animation: slideIn 0.3s ease;
   }
   
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
   /* =========================
      ANIMATION
   ========================= */

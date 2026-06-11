@@ -16,6 +16,7 @@ HERO SECTION
 ========================= */
 .hero {
   min-height: 45vh;
+
   background:
     linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
     url("https://bykkbdkowxocrfucxlhd.supabase.co/storage/v1/object/public/personal/1f1ccea0-bfdf-4096-9886-fc7720a77ae1.png");
@@ -25,12 +26,18 @@ HERO SECTION
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  text-align: center;
-  padding: 30px 20px;
+  justify-content: flex-start;  /* 👈 move UP */
+  align-items: flex-start;      /* 👈 move LEFT */
+
+  text-align: left;
+  padding: 60px;
+
   color: white;
+}
+.hero h1,
+.hero p {
+  line-height: 1.0;
 }
 
 /* =========================

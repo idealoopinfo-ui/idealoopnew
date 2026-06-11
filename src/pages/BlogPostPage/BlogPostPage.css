@@ -1,5 +1,5 @@
 /* =========================
-   LOADER
+   LOADER - BLOG DETAIL PAGE
 ========================= */
 .loader-container {
     height: 100vh;
@@ -28,11 +28,10 @@
   /* =========================
      BLOG PAGE
   ========================= */
-  .blog-container {
-    max-width: 1000px;   /* tighter layout */
-    margin: 0 auto;
-    padding: 0 10px;
-    gap: 15px;           /* reduced spacing */
+  .post-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px 60px;
   }
   
   /* TITLE */
