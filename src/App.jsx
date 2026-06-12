@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import { supabase } from "./lib/supabaseClient";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -36,23 +35,65 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 import CookiePopup from "./components/CookiePopup/CookiePopup";
 import ScrollToTop from "./components/ScrollToTop";
+import MaintenancePage from "./pages/MaintenancePage/MaintenancePage";
 
 import "./App.css";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [maintenance, setMaintenance] = useState(false);
 
+  // =========================
+  // FETCH MAINTENANCE MODE (SAFE)
+  // =========================
+  useEffect(() => {
+    const fetchMode = async () => {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("*")
+        .eq("id", 1);
+
+      if (error) {
+        console.error("Supabase error:", error.message);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        setMaintenance(data[0].maintenance_mode);
+      }
+    };
+
+    fetchMode();
+  }, []);
+
+  // =========================
+  // SESSION LOG
+  // =========================
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       console.log("Session:", data.session);
     });
   }, []);
 
+  // =========================
+  // MAINTENANCE MODE CHECK
+  // =========================
+  if (maintenance) {
+    return <MaintenancePage />;
+  }
+
+  // =========================
+  // NORMAL APP
+  // =========================
   return (
     <div className={`app-layout ${darkMode ? "dark" : ""}`}>
-      <Navbar />
 
-      <button onClick={() => setDarkMode(!darkMode)} className="dark-toggle">
+      <Navbar /> 
+
+      <button
+        onClick={() => setDarkMode(!darkMode)}
+        className="dark-toggle"
+      >
         {darkMode ? "☀ Light" : "🌙 Dark"}
       </button>
 
@@ -93,6 +134,7 @@ export default function App() {
 
       <Footer />
       <CookiePopup />
+
     </div>
   );
 }

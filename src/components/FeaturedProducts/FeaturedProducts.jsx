@@ -8,38 +8,35 @@ export default function FeaturedProducts() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
-
     const fetchProducts = async () => {
       setLoading(true);
 
       const { data, error } = await supabase
         .from("products")
-        .select("*")
-        .order("created_at", { ascending: false });
+        .select("*");
 
       if (error) {
         console.error("Featured error:", error.message);
-        if (isMounted) setLoading(false);
+        setLoading(false);
         return;
       }
 
-      if (isMounted) {
-        setProducts(data || []);
-        setLoading(false);
-      }
+      // ✅ FILTER using correct column: featured
+      const featured = (data || []).filter(
+        (p) => p.featured === true
+      );
+
+      console.log("FEATURED PRODUCTS:", featured);
+
+      setProducts(featured);
+      setLoading(false);
     };
 
     fetchProducts();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   return (
     <section className="featured-section">
-
       <div className="featured-header">
         <h2>🔥 Featured Products</h2>
         <p>Top fitness picks for performance & lifestyle</p>
@@ -47,6 +44,8 @@ export default function FeaturedProducts() {
 
       {loading ? (
         <p style={{ textAlign: "center" }}>Loading products...</p>
+      ) : products.length === 0 ? (
+        <p style={{ textAlign: "center" }}>No featured products found.</p>
       ) : (
         <div className="featured-grid">
           {products.slice(0, 4).map((product) => (
@@ -54,7 +53,6 @@ export default function FeaturedProducts() {
           ))}
         </div>
       )}
-
     </section>
   );
 }

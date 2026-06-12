@@ -10,24 +10,15 @@ export default function TrendingProducts() {
     const fetchTrending = async () => {
       const { data, error } = await supabase
         .from("products")
-        .select("*");
+        .select("*")
+        .eq("is_trending", true);
 
       if (error) {
         console.error("Supabase fetch error:", error.message);
         return;
       }
 
-      console.log("ALL PRODUCTS RAW:", data);
-
-      const filtered = (data || []).filter((item) => {
-        return Boolean(
-          item.is_trending === true ||
-          item.is_trending === "true" ||
-          item.is_trending === 1
-        );
-      });
-
-      setTrending(filtered);
+      setTrending(data || []);
     };
 
     fetchTrending();

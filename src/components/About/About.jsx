@@ -34,7 +34,7 @@ export default function About() {
         {/* RIGHT SIDE */}
         <div className="about-image">
           <img
-            src="https://bykkbdkowxocrfucxlhd.supabase.co/storage/v1/object/public/personal/fw_flash_sale_sept_26_30_web_asset_1360x664.jpg"
+            src="https://bykkbdkowxocrfucxlhd.supabase.co/storage/v1/object/public/personal/depositphotos_42844365-Young-beautiful-fitness-girl-exercising-with-orange-ball-in-gym.jpg"
             alt="fitness"
             loading="lazy"
           />

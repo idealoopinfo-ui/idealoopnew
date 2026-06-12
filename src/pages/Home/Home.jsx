@@ -6,6 +6,7 @@ import About from "../../components/About/About";
 import GetInTouch from "../../components/GetInTouch/GetInTouch";
 import TrendingProducts from "../../components/Trending/TrendingProducts";
 import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 
 import "./Home.css";
@@ -13,7 +14,6 @@ import "./Home.css";
 export default function Home() {
   const navigate = useNavigate(); // ✅ FIX ADDED
 
-  const [search, setSearch] = useState("");
   const [blogs, setBlogs] = useState([]);
 
   /* =========================
@@ -41,16 +41,10 @@ export default function Home() {
   /* =========================
      SEARCH
   ========================= */
-  const handleSearch = () => {
-    if (search.trim() !== "") {
-      navigate(`/search?q=${search}`);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
+  const handleSearch = (term) => {
+    if (!term || !term.trim()) return;
+  
+    navigate(`/search?q=${encodeURIComponent(term)}`);
   };
 
   return (
@@ -60,26 +54,11 @@ export default function Home() {
       <section className="hero">
         <h1>Welcome to idealoop fitness</h1>
         <p>
-          Your all-in-one destination for fitness blogs,
-          premium products, and expert learning content
-          designed to boost your performance.
+         
         </p>
       </section>
 
-      {/* SEARCH */}
-      <div className="search-section">
-  <div className="search-bar">
-    <input
-      type="text"
-      placeholder="Search products..."
-      className="search-input"
-    />
-
-    <button className="btn btn-primary">
-      Search
-    </button>
-  </div>
-</div>
+      <SearchBar onSearch={handleSearch} />
 
       {/* CATEGORY */}
       <section className="category-section">
@@ -105,7 +84,7 @@ export default function Home() {
 
   <div onClick={() => navigate("/category/recovery-wellness")} className="category-card">
     <div className="category-icon"></div>
-    <div className="category-text">Recovery</div>
+    <div className="category-text">Recovery Wellness</div>
   </div>
 
   <div onClick={() => navigate("/category/gym-wear")} className="category-card">
