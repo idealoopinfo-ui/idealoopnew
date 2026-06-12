@@ -70,15 +70,18 @@ setTimeout(() => {
 GOOGLE LOGIN
 ========================= */
 const handleGoogleLogin = async () => {
-setMessage("");
+  setMessage("");
 
-const { error } = await supabase.auth.signInWithOAuth({
-  provider: "google",
-});
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: window.location.origin,
+    },
+  });
 
-if (error) {
-  setMessage(error.message);
-}
+  if (error) {
+    setMessage(error.message);
+  }
 };
 
 /* =========================
