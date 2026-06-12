@@ -90,12 +90,7 @@ export default function App() {
 
       <Navbar /> 
 
-      <button
-        onClick={() => setDarkMode(!darkMode)}
-        className="dark-toggle"
-      >
-        {darkMode ? "☀ Light" : "🌙 Dark"}
-      </button>
+     
 
       <ScrollToTop />
 
