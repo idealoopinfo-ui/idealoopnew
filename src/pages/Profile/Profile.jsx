@@ -332,12 +332,14 @@ export default function Profile() {
 
         {/* ADMIN */}
         {role === "admin" && (
-  <button
-    className="profile-btn"
-    onClick={() => navigate("/admin")}
-  >
-    Admin Dashboard
-  </button>
+  <div className="profile-action-row">
+    <button
+      className="profile-btn"
+      onClick={() => navigate("/admin")}
+    >
+      Admin Dashboard
+    </button>
+  </div>
 )}
         {/* DELETE ACCOUNT */}
 <div className="profile-section">

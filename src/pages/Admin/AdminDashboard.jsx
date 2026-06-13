@@ -6,7 +6,7 @@ import "./AdminDashboard.css";
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [notice, setNotice] = useState("");
-
+  const [searchId, setSearchId] = useState("");
   const [tab, setTab] = useState("stats");
 
   const [productsCount, setProductsCount] = useState(0);
@@ -14,7 +14,7 @@ export default function AdminDashboard() {
   const [blogs, setBlogs] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [users, setUsers] = useState([]);
-
+  const [searchBlog, setSearchBlog] = useState("");
   const [editProduct, setEditProduct] = useState(null);
   const [editBlog, setEditBlog] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
@@ -217,56 +217,202 @@ export default function AdminDashboard() {
         </div>
       )}
   
-      {/* =========================
-          PRODUCTS
-      ========================= */}
-      {tab === "products" && (
-        <div>
-          <h2>Products</h2>
   
-          {products.length === 0 ? (
-            <p>No products found</p>
-          ) : (
-            products.map((p) => (
-              <div key={p.id} className="admin-product-card">
-                <img src={p.image_url} alt={p.name} />
-  
-                <div>
-                  <h4>{p.title}</h4>
-                  <p>{p.price}</p>
+    {/* =========================
+PRODUCTS (IMPROVED + SEARCH)
+========================= */}
+{tab === "products" && (
+  <>
+    {products.length === 0 ? (
+      <p>No products found</p>
+    ) : (
+      <>
+
+    {/* ✅ ADD SEARCH HERE */}
+    <div className="admin-search-wrapper">
+      <input
+        type="text"
+        placeholder="Search by Product ID, Item No..."
+        value={searchId}
+        onChange={(e) => setSearchId(e.target.value)}
+        className="admin-search-input"
+      />
+    </div>
+
+        {/* PRODUCT LIST WRAPPER */}
+        <div className="admin-product-wrapper">
+          <div className="admin-product-list">
+          {products
+  .filter((p, index) => {
+    if (!searchId) return true;
+
+    const keyword = searchId.toLowerCase();
+
+    return (
+      String(p.product_id || "").toLowerCase().includes(keyword) || // NEW ID
+      String(p.id).toLowerCase().includes(keyword) ||               // UUID fallback
+      String(index + 1).includes(keyword)                           // UI number
+    );
+  })
+  .map((p, index) => (
+                <div
+                  key={p.id}
+                  className={`admin-product-row ${
+                    editProduct?.id === p.id ? "active" : ""
+                  }`}
+                  onClick={() =>
+                    setEditProduct({
+                      id: p.id,
+                      name: p.name,
+                      category: p.category,
+                      subcategory: p.subcategory,
+                      image_url: p.image_url,
+                      price: p.price,
+                    })
+                  }
+                >
+                  <span className="product-index">
+                    {index + 1}
+                  </span>
+
+                  <img
+                    src={p.image_url}
+                    alt={p.name}
+                    className="admin-product-image-small"
+                  />
+
+                  <div className="admin-product-title">
+                    {p.title}
+                  </div>
+
+                  <div className="admin-product-price">
+                    {p.price}
+                  </div>
                 </div>
-  
-                <button onClick={() => deleteProduct(p.id)}>
-                  Delete
-                </button>
-              </div>
-            ))
-          )}
+              ))}
+          </div>
         </div>
-      )}
-  
-      {/* =========================
-          BLOGS
-      ========================= */}
-      {tab === "blogs" && (
-        <div>
-          <h2>Blogs</h2>
-  
-          {blogs.length === 0 ? (
-            <p>No blogs found</p>
-          ) : (
-            blogs.map((b) => (
-              <div key={b.id}>
-                <h4>{b.title}</h4>
-                <button onClick={() => deleteBlog(b.id)}>
-                  Delete
-                </button>
-              </div>
-            ))
-          )}
-        </div>
-      )}
-  
+
+        {/* GLOBAL ACTION PANEL */}
+        {editProduct && (
+          <div className="admin-action-bar">
+            <button
+              className="admin-btn"
+              onClick={() => console.log("Edit mode")}
+            >
+              Edit
+            </button>
+
+            <button
+              className="admin-btn save"
+              onClick={handleProductUpdate}
+            >
+              Save
+            </button>
+
+            <button
+              className="admin-btn delete"
+              onClick={() => {
+                deleteProduct(editProduct.id);
+                setEditProduct(null);
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        )}
+
+        {/* OPTIONAL QUICK EDIT FORM */}
+        {editProduct && (
+          <div className="admin-edit-form">
+            <input
+              value={editProduct.name || ""}
+              onChange={(e) =>
+                setEditProduct({
+                  ...editProduct,
+                  name: e.target.value,
+                })
+              }
+              placeholder="Product Name"
+            />
+
+            <input
+              value={editProduct.category || ""}
+              onChange={(e) =>
+                setEditProduct({
+                  ...editProduct,
+                  category: e.target.value,
+                })
+              }
+              placeholder="Category"
+            />
+
+            <input
+              value={editProduct.subcategory || ""}
+              onChange={(e) =>
+                setEditProduct({
+                  ...editProduct,
+                  subcategory: e.target.value,
+                })
+              }
+              placeholder="Subcategory"
+            />
+          </div>
+        )}
+      </>
+    )}
+  </>
+)}
+     {/* =========================
+    BLOGS (WITH SEARCH)
+========================= */}
+{tab === "blogs" && (
+  <div>
+    <h2>Blogs</h2>
+
+    {/* SEARCH INPUT (same style as products) */}
+    <div className="admin-search-bar">
+      <div className="admin-search-wrapper">
+        <input
+          type="text"
+          placeholder="Search blog by title or ID..."
+          value={searchBlog}
+          onChange={(e) => setSearchBlog(e.target.value)}
+        />
+      </div>
+    </div>
+
+    {blogs.length === 0 ? (
+      <p>No blogs found</p>
+    ) : (
+      blogs
+        .filter((b, index) => {
+          if (!searchBlog) return true;
+
+          const keyword = searchBlog.toLowerCase();
+
+          return (
+            String(b.id).includes(keyword) ||
+            String(index + 1).includes(keyword) ||
+            (b.title || "").toLowerCase().includes(keyword)
+          );
+        })
+        .map((b, index) => (
+          <div key={b.id} className="admin-product-row">
+            <span>{index + 1}</span>
+
+            <div style={{ flex: 1 }}>
+              <h4 style={{ margin: 0 }}>{b.title}</h4>
+            </div>
+
+            <button onClick={() => deleteBlog(b.id)}>
+              Delete
+            </button>
+          </div>
+        ))
+    )}
+  </div>
+)}
       {/* =========================
           MESSAGES
       ========================= */}

@@ -56,13 +56,14 @@ export default function Navbar() {
           className="navbar-logo"
         />
 
-        <span className="brand-name">idealoop</span>
+      <Link to="/" className="brand">
+      <span className="brand-name">idealoop</span>
+    </Link>
       </div>
 
       {/* NAV LINKS */}
       <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/blogs">Blogs</Link></li>
+        
       </ul>
 
       {/* AUTH SECTION */}
