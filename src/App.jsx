@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { supabase } from "./lib/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -42,6 +43,7 @@ import "./App.css";
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [maintenance, setMaintenance] = useState(false);
+  const navigate = useNavigate();
 
   // =========================
   // FETCH MAINTENANCE MODE (SAFE)
@@ -64,6 +66,35 @@ export default function App() {
     };
 
     fetchMode();
+  }, []);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession();
+  
+      if (data.session) {
+        console.log("SESSION RESTORED:", data.session);
+      }
+    };
+  
+    checkSession();
+  }, []);
+
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        console.log("AUTH EVENT:", event);
+        console.log("SESSION:", session);
+  
+        if (session) {
+          navigate("/");
+        }
+      }
+    );
+  
+    return () => {
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
   // =========================

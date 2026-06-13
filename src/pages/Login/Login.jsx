@@ -71,6 +71,7 @@ GOOGLE LOGIN
 ========================= */
 const handleGoogleLogin = async () => {
   setMessage("");
+  setLoading(true);
 
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -81,6 +82,7 @@ const handleGoogleLogin = async () => {
 
   if (error) {
     setMessage(error.message);
+    setLoading(false);
   }
 };
 

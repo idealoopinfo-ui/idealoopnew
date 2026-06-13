@@ -8,6 +8,7 @@ import "./Profile.css";
 export default function Profile() {
 
   const navigate = useNavigate();
+  const [role, setRole] = useState(null);
 
   const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(false);
@@ -55,6 +56,24 @@ export default function Profile() {
   
     navigate("/");
   };
+
+  useEffect(() => {
+    const fetchRole = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+  
+      if (user) {
+        const { data } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .single();
+  
+        setRole(data?.role);
+      }
+    };
+  
+    fetchRole();
+  }, []);
 
   /* =========================
      LOAD PROFILE
@@ -312,17 +331,14 @@ export default function Profile() {
         )}
 
         {/* ADMIN */}
-        <div className="profile-section">
-          <h3>Admin Panel</h3>
-
-          <button
-            className="profile-btn"
-            onClick={() => navigate("/admin")}
-          >
-            Open Admin Dashboard
-          </button>
-        </div>
-
+        {role === "admin" && (
+  <button
+    className="profile-btn"
+    onClick={() => navigate("/admin")}
+  >
+    Admin Dashboard
+  </button>
+)}
         {/* DELETE ACCOUNT */}
 <div className="profile-section">
 

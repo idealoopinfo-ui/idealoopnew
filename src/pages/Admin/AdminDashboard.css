@@ -621,3 +621,17 @@ button {
   background: #dc2626;
   transform: translateY(-2px);
 }
+
+/*notice panal */ 
+textarea {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  background: orange;
+  border: none;
+  cursor: pointer;
+}

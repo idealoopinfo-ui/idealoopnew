@@ -7,18 +7,18 @@ import GetInTouch from "../../components/GetInTouch/GetInTouch";
 import TrendingProducts from "../../components/Trending/TrendingProducts";
 import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import NoticePanel from "../../components/NoticePanel/NoticePanel";
 
 
 import "./Home.css";
 
 export default function Home() {
   const navigate = useNavigate(); // ✅ FIX ADDED
-
   const [blogs, setBlogs] = useState([]);
 
-  /* =========================
-     FETCH BLOGS
-  ========================= */
+   // =========================
+  // FETCH BLOGS
+  // =========================
   useEffect(() => {
     const fetchBlogs = async () => {
       const { data, error } = await supabase
@@ -38,27 +38,30 @@ export default function Home() {
     fetchBlogs();
   }, []);
 
-  /* =========================
-     SEARCH
-  ========================= */
+  // =========================
+  // SEARCH
+  // =========================
   const handleSearch = (term) => {
     if (!term || !term.trim()) return;
-  
     navigate(`/search?q=${encodeURIComponent(term)}`);
   };
 
   return (
     <div>
+     {/* HERO */}
+    <section className="hero">
+      <h1>Welcome to Idealoop Fitness</h1>
+      <p></p>
+    </section>
 
-      {/* HERO */}
-      <section className="hero">
-        <h1>Welcome to idealoop fitness</h1>
-        <p>
-         
-        </p>
-      </section>
+    {/* NOTICE */}
+    <div style={{ marginTop: "15px" }}>
+      <NoticePanel />
+    </div>
 
-      <SearchBar onSearch={handleSearch} />
+    {/* SEARCH */}
+    <SearchBar onSearch={handleSearch} />
+
 
       {/* CATEGORY */}
       <section className="category-section">

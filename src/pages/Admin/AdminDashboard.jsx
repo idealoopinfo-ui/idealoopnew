@@ -5,10 +5,8 @@ import "./AdminDashboard.css";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const [notice, setNotice] = useState("");
 
-  // =========================
-  // STATES
-  // =========================
   const [tab, setTab] = useState("stats");
 
   const [productsCount, setProductsCount] = useState(0);
@@ -27,6 +25,31 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchAll();
   }, []);
+
+  useEffect(() => {
+    const loadNotice = async () => {
+      const { data } = await supabase
+        .from("site_notice")
+        .select("message")
+        .single();
+
+      setNotice(data?.message);
+    };
+
+    loadNotice();
+  }, []);
+
+  const updateNotice = async () => {
+    const { error } = await supabase
+      .from("site_notice")
+      .update({ message: notice })
+      .eq("id", (await supabase.from("site_notice").select("id").single()).data.id);
+
+    if (!error) {
+      alert("Notice updated successfully!");
+    }
+  };
+
 
   const fetchAll = async () => {
     // PRODUCTS COUNT
@@ -109,13 +132,10 @@ export default function AdminDashboard() {
     fetchAll();
   };
 
-  // =========================
-  // UI
-  // =========================
   return (
-    <div>
+    <div className="admin-container">
       <h1>Admin Dashboard</h1>
-
+  
       {/* =========================
           TABS
       ========================= */}
@@ -123,28 +143,28 @@ export default function AdminDashboard() {
         <button className="btn" onClick={() => setTab("stats")}>
           Stats
         </button>
-
+  
         <button className="btn" onClick={() => setTab("products")}>
           Products
         </button>
-
+  
         <button className="btn" onClick={() => setTab("blogs")}>
           Blogs
         </button>
-
+  
         <button className="btn" onClick={() => setTab("messages")}>
           Messages
         </button>
-
+  
         <button className="btn" onClick={() => navigate("/admin/users")}>
           Users Page
         </button>
-
+  
         <button className="btn" onClick={() => navigate("/admin/messages")}>
           Messages Page
         </button>
       </div>
-
+  
       {/* =========================
           STATS
       ========================= */}
@@ -155,96 +175,105 @@ export default function AdminDashboard() {
               <h3>Total Products</h3>
               <p>{productsCount}</p>
             </div>
-
+  
             <div className="card">
               <h3>Total Blogs</h3>
               <p>{blogs.length}</p>
             </div>
-
+  
             <div className="card">
               <h3>Total Messages</h3>
               <p>{contacts.length}</p>
             </div>
-
+  
             <div className="card">
               <h3>Total Users</h3>
               <p>{users.length}</p>
             </div>
+  
+            {/* NOTICE */}
+            <div className="card">
+              <h3>Update Notice</h3>
+  
+              <textarea
+                value={notice}
+                onChange={(e) => setNotice(e.target.value)}
+                rows={4}
+                style={{ width: "100%" }}
+              />
+  
+              <button onClick={updateNotice}>
+                Update Notice
+              </button>
+            </div>
           </div>
-
-          {/* =========================
-              SITE CONTROL (FIXED)
-          ========================= */}
+  
+          {/* Maintenance */}
           <div className="maintenance-control">
-  <h3>Site Control</h3>
-
-  <div className="maintenance-buttons">
-    <button onClick={() => toggleMaintenance(true)}>
-      Enable Maintenance
-    </button>
-
-    <button onClick={() => toggleMaintenance(false)}>
-      Disable Maintenance
-    </button>
-  </div>
-</div>
+            <button onClick={() => toggleMaintenance(false)}>
+              Disable Maintenance
+            </button>
+          </div>
         </div>
       )}
-
+  
       {/* =========================
           PRODUCTS
       ========================= */}
       {tab === "products" && (
         <div>
           <h2>Products</h2>
-
+  
           {products.length === 0 ? (
             <p>No products found</p>
           ) : (
             products.map((p) => (
               <div key={p.id} className="admin-product-card">
                 <img src={p.image_url} alt={p.name} />
-
+  
                 <div>
                   <h4>{p.title}</h4>
                   <p>{p.price}</p>
                 </div>
-
-                <button onClick={() => deleteProduct(p.id)}>Delete</button>
+  
+                <button onClick={() => deleteProduct(p.id)}>
+                  Delete
+                </button>
               </div>
             ))
           )}
         </div>
       )}
-
+  
       {/* =========================
           BLOGS
       ========================= */}
       {tab === "blogs" && (
         <div>
           <h2>Blogs</h2>
-
+  
           {blogs.length === 0 ? (
             <p>No blogs found</p>
           ) : (
             blogs.map((b) => (
               <div key={b.id}>
                 <h4>{b.title}</h4>
-
-                <button onClick={() => deleteBlog(b.id)}>Delete</button>
+                <button onClick={() => deleteBlog(b.id)}>
+                  Delete
+                </button>
               </div>
             ))
           )}
         </div>
       )}
-
+  
       {/* =========================
-          MESSAGES (FIXED TAB)
+          MESSAGES
       ========================= */}
       {tab === "messages" && (
         <div>
           <h2>Messages</h2>
-
+  
           {contacts.length === 0 ? (
             <p>No messages found</p>
           ) : (
@@ -255,7 +284,7 @@ export default function AdminDashboard() {
                 </p>
                 <p>{c.email}</p>
                 <p>{c.message?.slice(0, 60)}...</p>
-
+  
                 <button onClick={() => setSelectedMessage(c)}>
                   View
                 </button>
@@ -266,4 +295,4 @@ export default function AdminDashboard() {
       )}
     </div>
   );
-}
+ }
