@@ -12,40 +12,32 @@ export default function Wishlist() {
   useEffect(() => {
     fetchWishlist();
   }, []);
-
+  
   const fetchWishlist = async () => {
     setLoading(true);
-
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError || !user) {
+  
+    const { data: { user } } = await supabase.auth.getUser();
+  
+    if (!user) {
       setWishlist([]);
       setLoading(false);
       return;
     }
-
-    // =========================
-    // FETCH FROM WISHLIST TABLE (FIXED)
-    // =========================
+  
     const { data, error } = await supabase
       .from("wishlist")
       .select("*")
       .eq("user_id", user.id);
-
+  
     if (error) {
-      console.log("Wishlist error:", error.message);
-      setWishlist([]);
+      console.log(error);
       setLoading(false);
       return;
     }
-
+  
     setWishlist(data || []);
     setLoading(false);
   };
-
   /* =========================
      LOADING
   ========================= */
@@ -67,19 +59,22 @@ export default function Wishlist() {
       ) : (
         <div className="wishlist-grid">
           {wishlist.map((item) => (
-            <div key={item.id} className="wishlist-card">
+           <div className="wishlist-card">
 
-              <p><b>Product ID:</b> {item.product_id}</p>
-
-              <button
-                onClick={() =>
-                  navigate(`/product/${item.product_id}`)
-                }
-              >
-                View Product
-              </button>
-
-            </div>
+           <div className="wishlist-info">
+             <p><b>Product ID:</b> {item.product_id}</p>
+           </div>
+         
+           <div className="wishlist-actions">
+             <button
+               className="view-btn"
+               onClick={() => navigate(`/product/${item.product_id}`)}
+             >
+               View Product
+             </button>
+           </div>
+         
+         </div>
           ))}
         </div>
       )}

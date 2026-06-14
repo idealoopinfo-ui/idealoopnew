@@ -63,15 +63,16 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (session) navigate("/");
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN") {
+        navigate("/");
       }
-    );
-
-    return () => listener.subscription.unsubscribe();
+    });
+  
+    return () => subscription.unsubscribe();
   }, [navigate]);
-
   if (maintenance) {
     return <MaintenancePage />;
   }

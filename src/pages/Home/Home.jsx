@@ -40,9 +40,6 @@ export default function Home() {
     fetchBlogs();
   }, []);
 
-  console.log("BLOG COUNT:", blogs.length);
-console.log("BLOG DATA:", blogs);
-
   return (
     <div>
      {/* HERO */}
