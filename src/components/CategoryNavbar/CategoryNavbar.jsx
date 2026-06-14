@@ -79,6 +79,7 @@ export default function CategoryNavbar() {
         <button onClick={() => navigate("/category/gym-wear")}>Gym Wear</button>
         <button onClick={() => navigate("/category/recovery-wellness")}>Recovery Wellness</button>
         <button onClick={() => navigate("/category/yoga-pilates")}>Yoga & Pilates</button>
+        <button onClick={() => navigate("/category/home-gym")}>Home Gym</button>
         <button onClick={() => navigate("/category/ebooks")}>Ebooks</button>
       </div>
 

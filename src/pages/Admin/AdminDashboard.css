@@ -88,10 +88,6 @@
    TABS
 ========================= */
 
-/* =========================
-   TABS
-========================= */
-
 .admin-tabs {
   display: flex;
   gap: 12px;
@@ -147,12 +143,14 @@
   align-items: center;
   justify-content: center;
 
-  min-width: 140px;
-  height: 46px;
+  width: fit-content;        /* KEY FIX */
+  min-width: 120px;          /* smaller, cleaner */
+  max-width: 200px;          /* prevents stretching */
 
-  padding: 0 18px;
+  height: 42px;              /* slightly tighter */
+  padding: 0 14px;
 
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid #e5e7eb;
 
   background: #ffffff;
@@ -163,6 +161,8 @@
 
   cursor: pointer;
   transition: all 0.25s ease;
+
+  white-space: nowrap;       /* prevents wrapping */
 }
 
 .btn:hover {

@@ -47,6 +47,7 @@ export default function AdminDashboard() {
 
     if (!error) {
       alert("Notice updated successfully!");
+      
     }
   };
 

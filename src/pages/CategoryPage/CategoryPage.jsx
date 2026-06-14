@@ -16,7 +16,8 @@ export default function CategoryPage() {
     "gym-wear": ["men", "women", "shoes", "accessories"],
     ebooks: ["strength-training", "yoga", "health"],
     "yoga-pilates": [],
-    "recovery-wellness": []
+    "recovery-wellness": [],
+    "home-gym": []
   };
 
   useEffect(() => {

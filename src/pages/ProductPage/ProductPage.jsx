@@ -31,6 +31,7 @@ export default function ProductPage() {
     "recovery-wellness",
     "gym-wear",
     "ebooks",
+    "home-gym",
   ];
 
   const filteredProducts =
