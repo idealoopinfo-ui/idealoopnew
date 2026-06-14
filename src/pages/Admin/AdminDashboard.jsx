@@ -77,21 +77,20 @@ export default function AdminDashboard() {
   };
 
   // =========================
-  // MAINTENANCE TOGGLE
-  // =========================
-  const toggleMaintenance = async (value) => {
-    const { error } = await supabase
-      .from("site_settings")
-      .update({ maintenance_mode: value })
-      .eq("id", 1);
+// MAINTENANCE TOGGLE
+// =========================
+const toggleMaintenance = async (value) => {
+  const { error } = await supabase
+    .from("site_settings")
+    .update({ maintenance_mode: value })
+    .eq("id", 1);
 
-    if (!error) {
-      alert(value ? "Maintenance Enabled" : "Maintenance Disabled");
-    } else {
-      console.error(error.message);
-    }
-  };
-
+  if (!error) {
+    alert(value ? "Maintenance Enabled" : "Maintenance Disabled");
+  } else {
+    console.error("Maintenance error:", error.message);
+  }
+};
   // =========================
   // DELETE / UPDATE
   // =========================
@@ -133,13 +132,17 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="admin-container">
-      <h1>Admin Dashboard</h1>
+    <div className="admin-dashboard">
   
       {/* =========================
           TABS
       ========================= */}
       <div className="admin-tabs">
+  
+      <button className="profile-btn" onClick={() => navigate("/profile")}>
+  ⬅ Back to Profile
+</button>
+  
         <button className="btn" onClick={() => setTab("stats")}>
           Stats
         </button>
@@ -152,71 +155,77 @@ export default function AdminDashboard() {
           Blogs
         </button>
   
-        <button className="btn" onClick={() => setTab("messages")}>
-          Messages
-        </button>
-  
         <button className="btn" onClick={() => navigate("/admin/users")}>
-          Users Page
+          Users
         </button>
   
         <button className="btn" onClick={() => navigate("/admin/messages")}>
-          Messages Page
+          Messages
+        </button>
+  
+      </div>
+  
+      {tab === "stats" && (
+  <>
+    <div className="stats-grid">
+
+      <div className="card">
+        <h3>Products</h3>
+        <p>{productsCount}</p>
+      </div>
+
+      <div className="card">
+        <h3>Blogs</h3>
+        <p>{blogs.length}</p>
+      </div>
+
+      <div className="card">
+        <h3>Messages</h3>
+        <p>{contacts.length}</p>
+      </div>
+
+      <div className="card">
+        <h3>Users</h3>
+        <p>{users.length}</p>
+      </div>
+
+    </div>
+
+    {/* =========================
+        NOTICE (NOW BELOW STATS)
+    ========================= */}
+    <div className="card notice-card">
+      <h3>Update Notice</h3>
+
+      <textarea
+        value={notice}
+        onChange={(e) => setNotice(e.target.value)}
+        rows={6}
+        placeholder="Write important announcement..."
+      />
+
+      <button onClick={updateNotice}>
+        Update Notice
+      </button>
+    </div>
+  </>
+)}
+  
+      {/* =========================
+          MAINTENANCE
+      ========================= */}
+      <div className="maintenance-control">
+        <button onClick={() => toggleMaintenance(true)}>
+          Enable Maintenance
+        </button>
+  
+        <button onClick={() => toggleMaintenance(false)}>
+          Disable Maintenance
         </button>
       </div>
   
-      {/* =========================
-          STATS
-      ========================= */}
-      {tab === "stats" && (
-        <div>
-          <div className="stats-grid">
-            <div className="card">
-              <h3>Total Products</h3>
-              <p>{productsCount}</p>
-            </div>
-  
-            <div className="card">
-              <h3>Total Blogs</h3>
-              <p>{blogs.length}</p>
-            </div>
-  
-            <div className="card">
-              <h3>Total Messages</h3>
-              <p>{contacts.length}</p>
-            </div>
-  
-            <div className="card">
-              <h3>Total Users</h3>
-              <p>{users.length}</p>
-            </div>
-  
-            {/* NOTICE */}
-            <div className="card">
-              <h3>Update Notice</h3>
-  
-              <textarea
-                value={notice}
-                onChange={(e) => setNotice(e.target.value)}
-                rows={4}
-                style={{ width: "100%" }}
-              />
-  
-              <button onClick={updateNotice}>
-                Update Notice
-              </button>
-            </div>
-          </div>
-  
-          {/* Maintenance */}
-          <div className="maintenance-control">
-            <button onClick={() => toggleMaintenance(false)}>
-              Disable Maintenance
-            </button>
-          </div>
-        </div>
-      )}
-  
+    </div>
+  );
   
     {/* =========================
 PRODUCTS (IMPROVED + SEARCH)
@@ -439,6 +448,4 @@ PRODUCTS (IMPROVED + SEARCH)
           )}
         </div>
       )}
-    </div>
-  );
- }
+  }

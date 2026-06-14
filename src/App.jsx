@@ -62,17 +62,24 @@ export default function App() {
     fetchMode();
   }, []);
 
+  // =========================
+  // AUTH LISTENER (FIXED)
+  // =========================
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        navigate("/");
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        navigate("/login");
       }
     });
-  
+
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, []);
+
+  // =========================
+  // MAINTENANCE CHECK (IMPORTANT)
+  // =========================
   if (maintenance) {
     return <MaintenancePage />;
   }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
 import { exportCSV } from "../utils/exportCSV";
 
@@ -10,6 +11,7 @@ export default function Users() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // =========================
   // FETCH USERS
@@ -138,6 +140,10 @@ export default function Users() {
         </button>
 
       </div>
+
+      <button className="btn" onClick={() => navigate("/admin")}>
+  ⬅ Back to Admin Dashboard
+      </button>
 
       {/* =========================
           USERS TABLE

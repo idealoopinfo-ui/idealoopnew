@@ -1,15 +1,15 @@
 /* =========================
-PAGE
+PAGE WRAPPER
 ========================= */
 
-.profile-page {
+.profile-container {
   min-height: 100vh;
   background: #f5f7fb;
   padding: 40px 20px;
 
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* =========================
@@ -22,9 +22,10 @@ CARD
   background: #fff;
 
   border-radius: 24px;
-  padding: 35px;
+  padding: 30px;
 
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
 }
 
 /* =========================
@@ -36,7 +37,7 @@ TOP SECTION
   align-items: center;
   gap: 25px;
 
-  padding-bottom: 30px;
+  padding-bottom: 25px;
   border-bottom: 1px solid #eee;
 }
 
@@ -73,22 +74,22 @@ TEXT
 }
 
 /* =========================
-SECTION
+SECTION BOX
 ========================= */
 
 .profile-section {
-  margin-top: 30px;
-  padding: 24px;
+  margin-top: 20px;
+  padding: 20px;
 
   background: #fafafa;
   border-radius: 18px;
   border: 1px solid #eee;
 
-  transition: 0.25s ease;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
+
+  transition: 0.25s ease;
 }
 
 .profile-section:hover {
@@ -100,20 +101,21 @@ SECTION
   font-size: 20px;
   font-weight: 700;
   color: #111;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .profile-section p {
   color: #555;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 /* =========================
-BUTTONS (UNIFIED STYLE)
+BUTTON BASE STYLE
 ========================= */
 
 .profile-btn,
-.delete-btn {
+.delete-btn,
+.logout-btn {
   min-width: 160px;
   height: 44px;
 
@@ -133,7 +135,10 @@ BUTTONS (UNIFIED STYLE)
   transition: 0.25s ease;
 }
 
-/* MAIN ACTION BUTTON */
+/* =========================
+PRIMARY BUTTON
+========================= */
+
 .profile-btn {
   background: #111;
   color: #fff;
@@ -145,7 +150,10 @@ BUTTONS (UNIFIED STYLE)
   transform: translateY(-2px);
 }
 
-/* DELETE BUTTON */
+/* =========================
+DELETE BUTTON
+========================= */
+
 .delete-btn {
   background: #dc2626;
   color: #fff;
@@ -157,14 +165,34 @@ BUTTONS (UNIFIED STYLE)
 }
 
 /* =========================
+LOGOUT BUTTON
+========================= */
+
+.logout-btn {
+  width: 100%;
+  margin-top: 10px;
+
+  background: #dc2626;
+  color: #fff;
+
+  font-weight: 700;
+}
+
+.logout-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+
+/* =========================
 FORM
 ========================= */
 
 .profile-form {
-  margin-top: 30px;
+  margin-top: 20px;
+
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 15px;
 }
 
 .profile-form input,
@@ -199,31 +227,27 @@ FORM
 }
 
 /* =========================
-LOGOUT
+DELETE BOX
 ========================= */
 
-.logout-btn {
-  margin-top: 35px;
-  width: 100%;
+.delete-box {
+  margin-top: 15px;
+  padding: 20px;
 
-  padding: 14px;
-
-  border: none;
   border-radius: 14px;
+  background: #fff5f5;
+  border: 1px solid #fecaca;
 
-  background: #dc2626;
-  color: #fff;
-
-  font-size: 15px;
-  font-weight: 700;
-
-  cursor: pointer;
-  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.logout-btn:hover {
-  background: #b91c1c;
-  transform: translateY(-2px);
+.delete-box select {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
 }
 
 /* =========================
@@ -238,6 +262,7 @@ LOADING
 
   font-size: 20px;
   font-weight: 600;
+  color: #555;
 }
 
 /* =========================
@@ -246,7 +271,7 @@ RESPONSIVE
 
 @media (max-width: 768px) {
   .profile-card {
-    padding: 24px;
+    padding: 20px;
   }
 
   .profile-top {
@@ -263,9 +288,18 @@ RESPONSIVE
     height: 100px;
   }
 }
+/* =========================
+WISHLIST + ADMIN BUTTON ROW
+========================= */
+
 .profile-action-row {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+.profile-action-row .profile-btn,
+.profile-action-row .delete-btn {
+  flex: 1;
+  min-width: 180px;
 }

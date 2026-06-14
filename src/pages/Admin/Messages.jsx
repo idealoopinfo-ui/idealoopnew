@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
 
 export default function Messages() {
@@ -9,6 +10,7 @@ export default function Messages() {
   const [messages, setMessages] = useState([]);
   const [replyTexts, setReplyTexts] = useState({});
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // =========================
   // FETCH MESSAGES
@@ -139,6 +141,10 @@ export default function Messages() {
                 <td>{msg.email}</td>
 
                 <td>{msg.message}</td>
+
+                <button className="btn" onClick={() => navigate("/admin")}>
+      ⬅ Back to Admin Dashboard
+      </button>
 
                 {/* =========================
                     READ STATUS
