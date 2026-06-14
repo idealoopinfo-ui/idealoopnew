@@ -132,320 +132,237 @@ const toggleMaintenance = async (value) => {
   };
 
   return (
-    <div className="admin-dashboard">
+    <div className="admin-container">
   
-      {/* =========================
-          TABS
-      ========================= */}
+      {/* HEADER */}
+      <div className="admin-top-bar">
+        <h1>Admin Dashboard</h1>
+      </div>
+  
+      {/* NAVIGATION */}
       <div className="admin-tabs">
   
-      <button className="profile-btn" onClick={() => navigate("/profile")}>
-  ⬅ Back to Profile
-</button>
-  
-        <button className="btn" onClick={() => setTab("stats")}>
-          Stats
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/profile")}
+        >
+          ← Back to Profile
         </button>
   
-        <button className="btn" onClick={() => setTab("products")}>
+        <button
+          className={`btn ${tab === "stats" ? "active" : ""}`}
+          onClick={() => setTab("stats")}
+        >
+          Dashboard
+        </button>
+  
+        <button
+          className={`btn ${tab === "products" ? "active" : ""}`}
+          onClick={() => setTab("products")}
+        >
           Products
         </button>
   
-        <button className="btn" onClick={() => setTab("blogs")}>
+        <button
+          className={`btn ${tab === "blogs" ? "active" : ""}`}
+          onClick={() => setTab("blogs")}
+        >
           Blogs
         </button>
   
-        <button className="btn" onClick={() => navigate("/admin/users")}>
+        <button
+          className="btn"
+          onClick={() => navigate("/admin/users")}
+        >
           Users
         </button>
   
-        <button className="btn" onClick={() => navigate("/admin/messages")}>
+        <button
+          className="btn"
+          onClick={() => navigate("/admin/messages")}
+        >
           Messages
         </button>
   
       </div>
   
-      {tab === "stats" && (
-  <>
-    <div className="stats-grid">
-
-      <div className="card">
-        <h3>Products</h3>
-        <p>{productsCount}</p>
-      </div>
-
-      <div className="card">
-        <h3>Blogs</h3>
-        <p>{blogs.length}</p>
-      </div>
-
-      <div className="card">
-        <h3>Messages</h3>
-        <p>{contacts.length}</p>
-      </div>
-
-      <div className="card">
-        <h3>Users</h3>
-        <p>{users.length}</p>
-      </div>
-
-    </div>
-
-    {/* =========================
-        NOTICE (NOW BELOW STATS)
-    ========================= */}
-    <div className="card notice-card">
-      <h3>Update Notice</h3>
-
-      <textarea
-        value={notice}
-        onChange={(e) => setNotice(e.target.value)}
-        rows={6}
-        placeholder="Write important announcement..."
-      />
-
-      <button onClick={updateNotice}>
-        Update Notice
-      </button>
-    </div>
-  </>
-)}
-  
       {/* =========================
-          MAINTENANCE
+          DASHBOARD STATS
       ========================= */}
-      <div className="maintenance-control">
-        <button onClick={() => toggleMaintenance(true)}>
-          Enable Maintenance
-        </button>
+      {tab === "stats" && (
+        <>
+          <div className="stats-grid">
   
-        <button onClick={() => toggleMaintenance(false)}>
-          Disable Maintenance
-        </button>
-      </div>
+            <div className="card">
+              <h3>Total Products</h3>
+              <p>{productsCount}</p>
+            </div>
+  
+            <div className="card">
+              <h3>Total Blogs</h3>
+              <p>{blogs.length}</p>
+            </div>
+  
+            <div className="card">
+              <h3>Total Messages</h3>
+              <p>{contacts.length}</p>
+            </div>
+  
+            <div className="card">
+              <h3>Total Users</h3>
+              <p>{users.length}</p>
+            </div>
+  
+          </div>
+  
+          {/* NOTICE PANEL */}
+          <div className="card notice-card">
+            <h3>Site Notice</h3>
+  
+            <textarea
+              value={notice}
+              onChange={(e) => setNotice(e.target.value)}
+              placeholder="Write important announcement..."
+            />
+  
+            <button
+              className="btn btn-primary"
+              onClick={updateNotice}
+            >
+              Update Notice
+            </button>
+          </div>
+  
+          {/* MAINTENANCE */}
+          <div className="maintenance-control">
+            <h3>Maintenance Mode</h3>
+  
+            <div className="maintenance-buttons">
+  
+              <button
+                className="enable-btn"
+                onClick={() => toggleMaintenance(true)}
+              >
+                Enable Maintenance
+              </button>
+  
+              <button
+                className="disable-btn"
+                onClick={() => toggleMaintenance(false)}
+              >
+                Disable Maintenance
+              </button>
+  
+            </div>
+          </div>
+        </>
+      )}
+  
+      {/* PRODUCTS */}
+      {tab === "products" && (
+        <div className="section">
+          <h2>Products</h2>
+  
+          <div className="admin-search-wrapper">
+            <input
+              type="text"
+              placeholder="Search Product ID..."
+              value={searchId}
+              onChange={(e) => setSearchId(e.target.value)}
+              className="admin-search-input"
+            />
+          </div>
+  
+          <div className="admin-product-wrapper">
+            <div className="admin-product-list">
+  
+              {products
+                .filter((p, index) => {
+                  if (!searchId) return true;
+  
+                  const keyword = searchId.toLowerCase();
+  
+                  return (
+                    String(p.product_id || "")
+                      .toLowerCase()
+                      .includes(keyword) ||
+                    String(p.id)
+                      .toLowerCase()
+                      .includes(keyword) ||
+                    String(index + 1).includes(keyword)
+                  );
+                })
+                .map((p, index) => (
+                  <div
+                    key={p.id}
+                    className="admin-product-row"
+                  >
+                    <span>{index + 1}</span>
+  
+                    <img
+                      src={p.image_url}
+                      alt={p.name}
+                      className="admin-product-image-small"
+                    />
+  
+                    <div className="admin-product-title">
+                      {p.name}
+                    </div>
+  
+                    <div className="admin-product-price">
+                      ${p.price}
+                    </div>
+                  </div>
+                ))}
+  
+            </div>
+          </div>
+        </div>
+      )}
+  
+      {/* BLOGS */}
+      {tab === "blogs" && (
+        <div className="section">
+          <h2>Blogs</h2>
+  
+          <div className="admin-search-wrapper">
+            <input
+              type="text"
+              placeholder="Search blog..."
+              value={searchBlog}
+              onChange={(e) => setSearchBlog(e.target.value)}
+              className="admin-search-input"
+            />
+          </div>
+  
+          {blogs
+            .filter((b) =>
+              (b.title || "")
+                .toLowerCase()
+                .includes(searchBlog.toLowerCase())
+            )
+            .map((b, index) => (
+              <div
+                key={b.id}
+                className="admin-blog-row"
+              >
+                <span>{index + 1}</span>
+  
+                <div className="admin-blog-title">
+                  {b.title}
+                </div>
+  
+                <button
+                  className="btn btn-danger"
+                  onClick={() => deleteBlog(b.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+        </div>
+      )}
   
     </div>
   );
-  
-    {/* =========================
-PRODUCTS (IMPROVED + SEARCH)
-========================= */}
-{tab === "products" && (
-  <>
-    {products.length === 0 ? (
-      <p>No products found</p>
-    ) : (
-      <>
-
-    {/* ✅ ADD SEARCH HERE */}
-    <div className="admin-search-wrapper">
-      <input
-        type="text"
-        placeholder="Search by Product ID, Item No..."
-        value={searchId}
-        onChange={(e) => setSearchId(e.target.value)}
-        className="admin-search-input"
-      />
-    </div>
-
-        {/* PRODUCT LIST WRAPPER */}
-        <div className="admin-product-wrapper">
-          <div className="admin-product-list">
-          {products
-  .filter((p, index) => {
-    if (!searchId) return true;
-
-    const keyword = searchId.toLowerCase();
-
-    return (
-      String(p.product_id || "").toLowerCase().includes(keyword) || // NEW ID
-      String(p.id).toLowerCase().includes(keyword) ||               // UUID fallback
-      String(index + 1).includes(keyword)                           // UI number
-    );
-  })
-  .map((p, index) => (
-                <div
-                  key={p.id}
-                  className={`admin-product-row ${
-                    editProduct?.id === p.id ? "active" : ""
-                  }`}
-                  onClick={() =>
-                    setEditProduct({
-                      id: p.id,
-                      name: p.name,
-                      category: p.category,
-                      subcategory: p.subcategory,
-                      image_url: p.image_url,
-                      price: p.price,
-                    })
-                  }
-                >
-                  <span className="product-index">
-                    {index + 1}
-                  </span>
-
-                  <img
-                    src={p.image_url}
-                    alt={p.name}
-                    className="admin-product-image-small"
-                  />
-
-                  <div className="admin-product-title">
-                    {p.title}
-                  </div>
-
-                  <div className="admin-product-price">
-                    {p.price}
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-
-        {/* GLOBAL ACTION PANEL */}
-        {editProduct && (
-          <div className="admin-action-bar">
-            <button
-              className="admin-btn"
-              onClick={() => console.log("Edit mode")}
-            >
-              Edit
-            </button>
-
-            <button
-              className="admin-btn save"
-              onClick={handleProductUpdate}
-            >
-              Save
-            </button>
-
-            <button
-              className="admin-btn delete"
-              onClick={() => {
-                deleteProduct(editProduct.id);
-                setEditProduct(null);
-              }}
-            >
-              Delete
-            </button>
-          </div>
-        )}
-
-        {/* OPTIONAL QUICK EDIT FORM */}
-        {editProduct && (
-          <div className="admin-edit-form">
-            <input
-              value={editProduct.name || ""}
-              onChange={(e) =>
-                setEditProduct({
-                  ...editProduct,
-                  name: e.target.value,
-                })
-              }
-              placeholder="Product Name"
-            />
-
-            <input
-              value={editProduct.category || ""}
-              onChange={(e) =>
-                setEditProduct({
-                  ...editProduct,
-                  category: e.target.value,
-                })
-              }
-              placeholder="Category"
-            />
-
-            <input
-              value={editProduct.subcategory || ""}
-              onChange={(e) =>
-                setEditProduct({
-                  ...editProduct,
-                  subcategory: e.target.value,
-                })
-              }
-              placeholder="Subcategory"
-            />
-          </div>
-        )}
-      </>
-    )}
-  </>
-)}
-     {/* =========================
-    BLOGS (WITH SEARCH)
-========================= */}
-{tab === "blogs" && (
-  <div>
-    <h2>Blogs</h2>
-
-    {/* SEARCH INPUT (same style as products) */}
-    <div className="admin-search-bar">
-      <div className="admin-search-wrapper">
-        <input
-          type="text"
-          placeholder="Search blog by title or ID..."
-          value={searchBlog}
-          onChange={(e) => setSearchBlog(e.target.value)}
-        />
-      </div>
-    </div>
-
-    {blogs.length === 0 ? (
-      <p>No blogs found</p>
-    ) : (
-      blogs
-        .filter((b, index) => {
-          if (!searchBlog) return true;
-
-          const keyword = searchBlog.toLowerCase();
-
-          return (
-            String(b.id).includes(keyword) ||
-            String(index + 1).includes(keyword) ||
-            (b.title || "").toLowerCase().includes(keyword)
-          );
-        })
-        .map((b, index) => (
-          <div key={b.id} className="admin-product-row">
-            <span>{index + 1}</span>
-
-            <div style={{ flex: 1 }}>
-              <h4 style={{ margin: 0 }}>{b.title}</h4>
-            </div>
-
-            <button onClick={() => deleteBlog(b.id)}>
-              Delete
-            </button>
-          </div>
-        ))
-    )}
-  </div>
-)}
-      {/* =========================
-          MESSAGES
-      ========================= */}
-      {tab === "messages" && (
-        <div>
-          <h2>Messages</h2>
-  
-          {contacts.length === 0 ? (
-            <p>No messages found</p>
-          ) : (
-            contacts.map((c, index) => (
-              <div key={c.id}>
-                <p>
-                  #{index + 1} {c.name}
-                </p>
-                <p>{c.email}</p>
-                <p>{c.message?.slice(0, 60)}...</p>
-  
-                <button onClick={() => setSelectedMessage(c)}>
-                  View
-                </button>
-              </div>
-            ))
-          )}
-        </div>
-      )}
-  }
+}
