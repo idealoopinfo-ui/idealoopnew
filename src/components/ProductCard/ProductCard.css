@@ -9,8 +9,15 @@ PRODUCT CARD (BASE)
   height: 100%;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  margin: 0;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 .product-card-content {
   flex: 1;
@@ -18,12 +25,12 @@ PRODUCT CARD (BASE)
 .product-button {
   margin-top: auto;  /* pushes button to bottom */
 }
-/* HOVER */
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+  padding: 20px;
 }
-
 /* =========================
 IMAGE CONTAINER
 ========================= */
@@ -98,9 +105,8 @@ VIEW MORE
 
 /* VIEW MORE HOVER */
 .view-more:hover {
-  text-decoration: underline;
+  ext-decoration: underline;
 }
-
 /* =========================
    SHOP BUTTON
 ========================= */
@@ -117,11 +123,8 @@ VIEW MORE
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
-
-  .shop-btn {
-    margin-top: auto;
-    margin-bottom: 8px;
-  }
+  margin-top: auto;
+  margin-bottom: 8px;
 }
 
 .shop-btn:hover {

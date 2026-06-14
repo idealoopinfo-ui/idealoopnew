@@ -1,20 +1,24 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
 import "./SearchBar.css";
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [focused, setFocused] = useState(false);
 
   const wrapperRef = useRef(null);
+  const navigate = useNavigate();
+  console.log("SearchBar mounted");
 
-  /* =========================
-     CLICK OUTSIDE CLOSE
-  ========================= */
+  // =========================
+  // CLICK OUTSIDE CLOSE
+  // =========================
   useEffect(() => {
     const handleClickOutside = (event) => {
+      
       if (
         wrapperRef.current &&
         !wrapperRef.current.contains(event.target)
@@ -31,138 +35,121 @@ export default function SearchBar({ onSearch }) {
     };
   }, []);
 
-  /* =========================
-     FETCH SUGGESTIONS
-  ========================= */
+  // =========================
+  // FETCH SUGGESTIONS
+  // =========================
   const fetchSuggestions = async (value) => {
-    if (!value.trim()) {
+    const query = value?.trim();
+  
+    if (!query || query.length < 2) {
       setSuggestions([]);
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
-      const { data: products } = await supabase
-        .from("products")
-        .select("id,title")
-        .ilike("title", `%${value}%`)
-        .limit(5);
-
-      const { data: blogs } = await supabase
-        .from("blogs")
-        .select("id,title")
-        .ilike("title", `%${value}%`)
-        .limit(5);
-
-      const mergedSuggestions = [
-        ...(products || []).map((item) => ({
-          ...item,
-          type: "product",
-        })),
-        ...(blogs || []).map((item) => ({
-          ...item,
-          type: "blog",
-        })),
-      ];
-
-      setSuggestions(mergedSuggestions);
+      const [productsResult, blogsResult] = await Promise.all([
+        supabase
+          .from("products")
+          .select("id,title")
+          .ilike("title", `%${query}%`)
+          .limit(5),
+  
+        supabase
+          .from("blogs")
+          .select("id,title")
+          .ilike("title", `%${query}%`)
+          .limit(5),
+      ]);
+  
+      const products = (productsResult.data || []).map((item) => ({
+        ...item,
+        type: "product",
+      }));
+  
+      const blogs = (blogsResult.data || []).map((item) => ({
+        ...item,
+        type: "blog",
+      }));
+  
+      setSuggestions([...products, ...blogs]);
     } catch (error) {
-      console.error(error);
+      console.error("Suggestion error:", error);
+      setSuggestions([]);
     }
-
+  
     setLoading(false);
   };
 
-  /* =========================
-     SEARCH SUBMIT
-  ========================= */
+  // =========================
+  // SEARCH SUBMIT (BUTTON + ENTER)
+  // =========================
   const handleSubmit = () => {
-    if (!searchTerm.trim()) return;
-
-    onSearch(searchTerm);
+    const query = searchTerm.trim();
+  
+    if (!query) return;
+  
     setSuggestions([]);
     setFocused(false);
+  
+    navigate(`/search?q=${encodeURIComponent(query)}`);
   };
 
-  /* =========================
-     SUGGESTION CLICK
-  ========================= */
-  const handleSuggestionClick = (title) => {
-    setSearchTerm(title);
+  // =========================
+  // SUGGESTION CLICK
+  // =========================
+  const handleSuggestionClick = (item) => {
+    setSearchTerm(item.title);
     setSuggestions([]);
     setFocused(false);
-    onSearch(title);
+
+    navigate(`/search?q=${encodeURIComponent(item.title)}`);
   };
 
   return (
-    <div className="search-wrapper" ref={wrapperRef}>
-      
-      {/* DARK OVERLAY */}
-      {focused && <div className="search-overlay"></div>}
-
+    <div className="search-wrapper">
+  
       <div className="search-container">
         <input
           type="text"
           className="search-input"
-          placeholder="Search fitness products and blogs..."
+          placeholder="Search products or blogs..."
           value={searchTerm}
           onFocus={() => setFocused(true)}
           onChange={(e) => {
-            setSearchTerm(e.target.value);
-            fetchSuggestions(e.target.value);
+            const value = e.target.value;
+            setSearchTerm(value);
+            fetchSuggestions(value);
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
+              e.preventDefault();
               handleSubmit();
             }
           }}
         />
-
-        <button
-          className="search-btn"
-          onClick={handleSubmit}
-        >
+  
+        <button onClick={handleSubmit}>
           Search
         </button>
       </div>
-
-      {/* LOADING */}
-      {loading && (
-        <div className="suggestions">
-          <div className="suggestion-item">
-            Searching...
-          </div>
-        </div>
-      )}
-
-      {/* SUGGESTIONS */}
+  
+      {/* suggestions */}
       {!loading && suggestions.length > 0 && (
         <div className="suggestions">
           {suggestions.map((item) => (
             <div
               key={`${item.type}-${item.id}`}
               className="suggestion-item"
-              onClick={() =>
-                handleSuggestionClick(item.title)
-              }
+              onClick={() => handleSuggestionClick(item)}
             >
-              <span className="suggestion-type">
-                {item.type === "product"
-                  ? "🏋️ Product"
-                  : "📝 Blog"}
-              </span>
-
-              {/* SHORT TEXT FIX */}
-              <span>
-                {item.title.length > 45
-                  ? item.title.substring(0, 45) + "..."
-                  : item.title}
-              </span>
+              {item.title}
             </div>
           ))}
         </div>
       )}
+  
     </div>
   );
-}
+          }

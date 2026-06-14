@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { supabase } from "./lib/supabaseClient";
-import { useNavigate } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -13,8 +12,10 @@ import Analytics from "./pages/Admin/Analytics";
 import Home from "./pages/Home/Home";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import BlogPostPage from "./pages/BlogPostPage/BlogPostPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 import Navbar from "./components/Navbar/Navbar";
+import CategoryNavbar from "./components/CategoryNavbar/CategoryNavbar";
 import Footer from "./components/Footer/Footer";
 
 import Login from "./pages/Login/Login";
@@ -41,13 +42,9 @@ import MaintenancePage from "./pages/MaintenancePage/MaintenancePage";
 import "./App.css";
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
   const [maintenance, setMaintenance] = useState(false);
   const navigate = useNavigate();
 
-  // =========================
-  // FETCH MAINTENANCE MODE (SAFE)
-  // =========================
   useEffect(() => {
     const fetchMode = async () => {
       const { data, error } = await supabase
@@ -55,12 +52,9 @@ export default function App() {
         .select("*")
         .eq("id", 1);
 
-      if (error) {
-        console.error("Supabase error:", error.message);
-        return;
-      }
+      if (error) return;
 
-      if (data && data.length > 0) {
+      if (data?.length > 0) {
         setMaintenance(data[0].maintenance_mode);
       }
     };
@@ -69,59 +63,25 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
-  
-      if (data.session) {
-        console.log("SESSION RESTORED:", data.session);
-      }
-    };
-  
-    checkSession();
-  }, []);
-
-  useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log("AUTH EVENT:", event);
-        console.log("SESSION:", session);
-  
-        if (session) {
-          navigate("/");
-        }
+        if (session) navigate("/");
       }
     );
-  
-    return () => {
-      listener.subscription.unsubscribe();
-    };
-  }, []);
 
-  // =========================
-  // SESSION LOG
-  // =========================
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      console.log("Session:", data.session);
-    });
-  }, []);
+    return () => listener.subscription.unsubscribe();
+  }, [navigate]);
 
-  // =========================
-  // MAINTENANCE MODE CHECK
-  // =========================
   if (maintenance) {
     return <MaintenancePage />;
   }
 
-  // =========================
-  // NORMAL APP
-  // =========================
   return (
-    <div className={`app-layout ${darkMode ? "dark" : ""}`}>
+    <div className="app-layout">
 
-      <Navbar /> 
+      <Navbar />
 
-     
+      <CategoryNavbar />
 
       <ScrollToTop />
 
@@ -129,6 +89,7 @@ export default function App() {
         <Routes>
 
           <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchPage />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

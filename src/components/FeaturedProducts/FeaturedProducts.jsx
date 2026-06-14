@@ -6,6 +6,7 @@ import "./FeaturedProducts.css";
 export default function FeaturedProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -13,43 +14,54 @@ export default function FeaturedProducts() {
 
       const { data, error } = await supabase
         .from("products")
-        .select("*");
+        .select("*")
+        .eq("featured", true);
 
       if (error) {
-        console.error("Featured error:", error.message);
+        console.error(error.message);
         setLoading(false);
         return;
       }
 
-      // ✅ FILTER using correct column: featured
-      const featured = (data || []).filter(
-        (p) => p.featured === true
-      );
-
-      console.log("FEATURED PRODUCTS:", featured);
-
-      setProducts(featured);
+      setProducts(data || []);
       setLoading(false);
     };
 
     fetchProducts();
   }, []);
 
+  // 🔥 AUTO ROTATION EVERY 6 HOURS
+  useEffect(() => {
+    const getOffset = () => {
+      const hour = new Date().getHours();
+      return Math.floor(hour / 6); // 4 rotations per day
+    };
+
+    const interval = setInterval(() => {
+      setOffset(getOffset());
+    }, 60 * 1000); // check every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // 🔥 ROTATE LIST AUTOMATICALLY
+  const rotated = [
+    ...products.slice(offset),
+    ...products.slice(0, offset),
+  ];
+
+  const visibleProducts = rotated.slice(0, 4);
+
   return (
     <section className="featured-section">
-      <div className="featured-header">
-        <h2>🔥 Featured Products</h2>
-        <p>Top fitness picks for performance & lifestyle</p>
-      </div>
+      <h2>🔥 Featured Products</h2>
 
       {loading ? (
-        <p style={{ textAlign: "center" }}>Loading products...</p>
-      ) : products.length === 0 ? (
-        <p style={{ textAlign: "center" }}>No featured products found.</p>
+        <p>Loading...</p>
       ) : (
         <div className="featured-grid">
-          {products.slice(0, 4).map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {visibleProducts.map((p) => (
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
       )}

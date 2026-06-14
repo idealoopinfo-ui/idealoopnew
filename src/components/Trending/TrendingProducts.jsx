@@ -4,7 +4,9 @@ import ProductCard from "../ProductCard/ProductCard";
 import "./TrendingProducts.css";
 
 export default function TrendingProducts() {
-  const [trending, setTrending] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     const fetchTrending = async () => {
@@ -14,41 +16,49 @@ export default function TrendingProducts() {
         .eq("is_trending", true);
 
       if (error) {
-        console.error("Supabase fetch error:", error.message);
+        console.error(error.message);
+        setLoading(false);
         return;
       }
 
-      setTrending(data || []);
+      setProducts(data || []);
+      setLoading(false);
     };
 
     fetchTrending();
   }, []);
 
-  // 🔥 DAILY ROTATION LOGIC
-  const getTodayProducts = (list) => {
-    if (!Array.isArray(list) || list.length === 0) return [];
+  // 🔥 AUTO ROTATION (EVERY 4 HOURS DIFFERENT SET)
+  useEffect(() => {
+    const getOffset = () => {
+      const hour = new Date().getHours();
+      return Math.floor(hour / 4); // more frequent changes
+    };
 
-    const today = new Date().getDate();
-    const startIndex = today % list.length;
+    const interval = setInterval(() => {
+      setOffset(getOffset());
+    }, 60 * 1000);
 
-    return [
-      ...list.slice(startIndex),
-      ...list.slice(0, startIndex),
-    ];
-  };
+    return () => clearInterval(interval);
+  }, []);
 
-  const dailyProducts = getTodayProducts(trending).slice(0, 5);
+  const rotated = [
+    ...products.slice(offset),
+    ...products.slice(0, offset),
+  ];
+
+  const visibleProducts = rotated.slice(0, 5);
 
   return (
     <section className="trending-section">
-      <h2 className="trending-title">🔥 Trending Products</h2>
+      <h2>🔥 Trending Products</h2>
 
-      {dailyProducts.length === 0 ? (
-        <p>No trending products available.</p>
+      {loading ? (
+        <p>Loading...</p>
       ) : (
         <div className="trending-grid">
-          {dailyProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {visibleProducts.map((p) => (
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
       )}

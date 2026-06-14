@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
 
+import MainCategoryBlock from "../../components/MainCategoryBlock/MainCategoryBlock";
 import About from "../../components/About/About";
 import GetInTouch from "../../components/GetInTouch/GetInTouch";
 import TrendingProducts from "../../components/Trending/TrendingProducts";
 import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import NoticePanel from "../../components/NoticePanel/NoticePanel";
+import CategoryShowcase from "../../components/CategoryShowcase/CategoryShowcase";
 
 
 import "./Home.css";
@@ -38,13 +40,8 @@ export default function Home() {
     fetchBlogs();
   }, []);
 
-  // =========================
-  // SEARCH
-  // =========================
-  const handleSearch = (term) => {
-    if (!term || !term.trim()) return;
-    navigate(`/search?q=${encodeURIComponent(term)}`);
-  };
+  console.log("BLOG COUNT:", blogs.length);
+console.log("BLOG DATA:", blogs);
 
   return (
     <div>
@@ -59,50 +56,9 @@ export default function Home() {
       <NoticePanel />
     </div>
 
-    {/* SEARCH */}
-    <SearchBar onSearch={handleSearch} />
+    {/* MAIN CATEGORY BLOCK */}
+    <MainCategoryBlock />
 
-
-      {/* CATEGORY */}
-      <section className="category-section">
-
-<div className="categories-header">
-  <h2 className="categories-title">Shop by Category</h2>
-  <p className="categories-subtitle">
-    Find products based on your fitness goals
-  </p>
-</div>
-
-<div className="categories-grid">
-
-  <div onClick={() => navigate("/category/strength-training")} className="category-card">
-    <div className="category-icon"></div>
-    <div className="category-text">Strength Training</div>
-  </div>
-
-  <div onClick={() => navigate("/category/yoga-pilates")} className="category-card">
-    <div className="category-icon"></div>
-    <div className="category-text">Yoga & Pilates</div>
-  </div>
-
-  <div onClick={() => navigate("/category/recovery-wellness")} className="category-card">
-    <div className="category-icon"></div>
-    <div className="category-text">Recovery Wellness</div>
-  </div>
-
-  <div onClick={() => navigate("/category/gym-wear")} className="category-card">
-    <div className="category-icon"></div>
-    <div className="category-text">Gym Wear</div>
-  </div>
-
-  <div onClick={() => navigate("/category/ebooks")} className="category-card">
-    <div className="category-icon"></div>
-    <div className="category-text">Ebooks</div>
-  </div>
-
-</div>
-
-</section>
       {/* FEATURED */}
       <FeaturedProducts />
 
@@ -114,62 +70,45 @@ export default function Home() {
       {/* TRENDING */}
       <TrendingProducts />
 
+      {/* CATEGORY SHOWCASE */}
+      <CategoryShowcase />
+
      {/* BLOGS */}
+{/* BLOGS */}
 <section className="blog-section">
 
-<div className="blog-header">
-  <h2>📚 Latest Blogs</h2>
-</div>
-
-<div className="blog-container home-blog-container">
-
   {blogs.length === 0 ? (
-    <p>No blogs found.</p>
+    <p>No blogs found</p>
   ) : (
-    blogs.map((blog) => (
-      <div key={blog.id} className="blog-card home-blog-card">
+    <div className="blog-container">
+      {blogs.map((blog) => (
+        <div className="home-blog-card" key={blog.id}>
 
-  <img
-    src={blog.image_url || "https://via.placeholder.com/400"}
-    alt={blog.title}
-    className="home-blog-image"
-  />
+          <img
+            src={blog.image_url || "https://via.placeholder.com/400"}
+            alt={blog.title}
+            className="home-blog-image"
+          />
 
-  <div className="home-blog-content">
+          <div className="home-blog-content">
+            <h3 className="home-blog-title">
+              {blog.title}
+            </h3>
 
-    <h3 className="home-blog-title">
-      {blog.title}
-    </h3>
+            <button
+              className="blog-btn"
+              onClick={() => navigate(`/post/${blog.id}`)}
+            >
+              View Details →
+            </button>
+          </div>
 
-    {/* BUTTON ALWAYS SAME LEVEL */}
-    <button
-      className="blog-btn"
-      onClick={() => navigate(`/post/${blog.id}`)}
-    >
-      View Details →
-    </button>
-
-  </div>
-
-</div>
-      
-    ))
+        </div>
+      ))}
+    </div>
   )}
 
-</div>
-
-<div className="blog-footer">
-  <button
-    className="view-all-btn"
-    onClick={() => navigate("/blogs")}
-  >
-    View All →
-  </button>
-</div>
-
 </section>
-
-
       {/* CONTACT */}
   <section className="contact-section">
     <GetInTouch />
