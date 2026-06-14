@@ -191,8 +191,14 @@ PRIMARY BUTTON
 ========================= */
 
 .profile-btn {
-  background: #111;
-  color: #fff;
+  width: 220px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  text-align: center;
 }
 
 .profile-btn:hover {
@@ -397,12 +403,12 @@ ADMIN BUTTON
 ========================= */
 
 .admin-btn {
-  background: #2563eb;
+  background: #111;
   color: #fff;
 }
 
 .admin-btn:hover {
-  background: #1d4ed8;
+  background: #ff9900;
   color: #fff;
 }
 
@@ -410,15 +416,64 @@ ADMIN BUTTON
 QUICK ACTIONS
 ========================= */
 
+/* =========================
+   PROFILE ACTIONS FIX (FINAL)
+========================= */
+
+/* =========================
+   PROFILE ACTIONS ROW
+========================= */
+
 .profile-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-.profile-actions .profile-btn,
-.profile-actions .logout-btn {
+.profile-actions button {
   flex: 1;
+  min-width: 180px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   DANGER ZONE (DELETE BUTTON)
+========================= */
+
+.profile-danger-zone {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.delete-trigger {
   min-width: 220px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: #ef4444;
+  color: white;
+  border: none;
+  transition: 0.25s ease;
+}
+
+.delete-trigger:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
 }

@@ -150,7 +150,7 @@ export default function Profile() {
   if (!profile) {
     return <div className="profile-loading">Loading...</div>;
   }
-
+  
   return (
     <div className="profile-container">
   
@@ -201,10 +201,7 @@ export default function Profile() {
       <div className="profile-card">
         <h3>Edit Profile</h3>
   
-        <button
-          className="profile-btn"
-          onClick={() => setEditing(!editing)}
-        >
+        <button className="profile-btn" onClick={() => setEditing(!editing)}>
           {editing ? "Close Edit" : "Edit Profile"}
         </button>
   
@@ -214,10 +211,7 @@ export default function Profile() {
               placeholder="First Name"
               value={formData.first_name}
               onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  first_name: e.target.value,
-                })
+                setFormData({ ...formData, first_name: e.target.value })
               }
             />
   
@@ -225,10 +219,7 @@ export default function Profile() {
               placeholder="Last Name"
               value={formData.last_name}
               onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  last_name: e.target.value,
-                })
+                setFormData({ ...formData, last_name: e.target.value })
               }
             />
   
@@ -236,10 +227,7 @@ export default function Profile() {
               placeholder="Address"
               value={formData.address}
               onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  address: e.target.value,
-                })
+                setFormData({ ...formData, address: e.target.value })
               }
             />
   
@@ -247,10 +235,7 @@ export default function Profile() {
               placeholder="Bio"
               value={formData.bio}
               onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  bio: e.target.value,
-                })
+                setFormData({ ...formData, bio: e.target.value })
               }
             />
   
@@ -266,38 +251,32 @@ export default function Profile() {
         <h3>Quick Actions</h3>
   
         <div className="profile-actions">
-  
-          <button
-            className="profile-btn"
-            onClick={() => navigate("/wishlist")}
-          >
-            ❤️ My Wishlist
-          </button>
-  
-          {role === "admin" && (
-            <button
-              className="profile-btn admin-btn"
-              onClick={() => navigate("/admin")}
-            >
-              🛠 Admin Panel
-            </button>
-          )}
-  
-          <button
-            className="profile-btn logout-btn"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-  
-          <button
-            className="profile-btn delete-trigger"
-            onClick={() => setShowDelete(true)}
-          >
-            Delete Account
-          </button>
-  
-        </div>
+
+        <button className="profile-btn" onClick={() => navigate("/wishlist")}>
+  ❤️ My Wishlist
+</button>
+
+{role === "admin" && (
+  <button className="profile-btn" onClick={() => navigate("/admin")}>
+    🛠 Admin Panel
+  </button>
+)}
+
+<button className="profile-btn" onClick={handleLogout}>
+  Logout
+</button>
+
+</div>
+
+{/* DELETE SECTION MOVED DOWN */}
+<div className="profile-danger-zone">
+  <button
+    className="delete-trigger"
+    onClick={() => setShowDelete(true)}
+  >
+    Delete Account
+  </button>
+</div>
   
         {showDelete && (
           <div className="delete-box">
@@ -305,10 +284,7 @@ export default function Profile() {
   
             <p>Why are you deleting your account?</p>
   
-            <select
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-            >
+            <select value={reason} onChange={(e) => setReason(e.target.value)}>
               <option value="">Select reason</option>
               <option value="privacy">Privacy concerns</option>
               <option value="not_useful">Not useful</option>
@@ -317,17 +293,11 @@ export default function Profile() {
             </select>
   
             <div className="delete-actions">
-              <button
-                className="delete-btn"
-                onClick={handleDeleteAccount}
-              >
+              <button className="delete-btn" onClick={handleDeleteAccount}>
                 Confirm Delete
               </button>
   
-              <button
-                className="profile-btn"
-                onClick={() => setShowDelete(false)}
-              >
+              <button className="profile-btn" onClick={() => setShowDelete(false)}>
                 Cancel
               </button>
             </div>
@@ -337,4 +307,4 @@ export default function Profile() {
   
     </div>
   );
- }
+        }
